@@ -383,7 +383,7 @@ def delete_resume(request):
         obj = ResumeMsg.objects.filter(id=id)[0]
         obj.delete()
     except Exception, e:
-        logging.error(u'{0}在删除简历ID={1}时发生错误：{2}'.format(test_people, id, e))
+        logging.error(u'{0}在删除简历ID={1}时发生了错误：{2}'.format(test_people, id, e))
         return HttpResponse(json.dumps({'result': False, 'message': e}))
 
     logging.info(u'{0}删除了简历ID＝{1}'.format(test_people, id))
