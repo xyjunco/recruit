@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="/static/css/dropify.min.css" type="text/css">
+
+
+
+    <div class="panel-body">
+
+        <!-- 上方导航条 -->
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <a class="navbar-brand" href="#"><i class="fa fa-file-pdf-o"></i>&nbsp;&nbsp;我的简历</a>
+                </ul>
+                <form class="navbar-form navbar-right" role="button" id="upload_btn">
+                    <button type="button" class="btn btn-default" id="upload_button"
+                            data-toggle="modal" data-target="#upload_modal">
+                        <i class="fa fa-upload"></i>&nbsp;上传简历
+                    </button>
+                </form>
+            </div>
+        </nav>
+
+        <!-- 通过Django模板渲染出N个简历  N为当前用户所上传的简历数 -->
+        <div class="resume-group">
+            {% if resumes %}
+                {% for resume in resumes %}
+
+                    <div class="col-md-4 col-sm-6 col-xs-12 resume-item">
+                        <article class="material-card">
+                            <h2>
+                                <span><h5>{{ resume.resume_name }}</h5></span>
+                                <strong><h5>上传于{{ resume.upload_time }}</h5></strong>
+                            </h2>
+                            <div class="mc-content">
+                                <div class="img-container">
+                                    <img class="img-responsive" src="{{ resume.resume_thumb }}"></div>
+                                <div class="mc-description">{{ resume.resume_desc }}</div>
+                            </div>
+                            <a class="mc-btn-action"><i class="fa fa-bars"></i></a>
+
+                            <div class="mc-footer">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    {% if resume.is_gathered %}
+                                        <input type="checkbox" class="gather" value="{{ resume.id }}" checked>可被收集
+                                    {% else %}
+                                        <input type="checkbox" class="gather" value="{{ resume.id }}">可被收集
+                                    {% endif %}
+                                </div>
+                                <div class="btn-group btn-group-sm" role="group" aria-labelledby>
+                                    <button type="button" class="btn btn-success" value="{{ forloop.counter }}"
+                                            onclick="window.open('/resume?id={{ resume.id }}')">
+                                        <i class="fa fa-search"></i>&nbsp;查看
+                                    </button>
+                                    <button type="button" class="btn btn-info"
+                                            onclick="window.open('{{ resume.resume_path.url }}')">
+                                        <i class="fa fa-cloud-download"></i>&nbsp;下载
+                                    </button>
+                                    <button type="button" class="btn btn-danger deletebtn" value="{{ resume.id }}">
+                                        <i class="fa fa-times"></i>&nbsp;删除
+                                    </button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+                {% endfor %}
+            {% else %}
+                <p>您当前还未上传简历，赶快点击右上方按钮上传自己的简历吧！</p>
+            {% endif %}
+        </div>
+
+
+    </div>
+
+    <!-- 简历上传 Modal -->
+    <div class="modal fade" id="upload_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="new_event_title">简历上传</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="file" id="upload_file" class="dropify" accept="application/pdf"/>
+
+                    <form class="cd-form floating-labels">
+                        <div>
+                            <label class="cd-label" for="resume_desc">
+                                <i class="fa fa-pencil-square-o"></i>&nbsp;简历描述（版本、用途等）
+                            </label>
+                            <input type="text" id="resume_desc">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="closebtn">关闭
+                    </button>
+                    <button type="submit" class="btn btn-info" id="commitbtn">上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block js %}
+    <script type="text/javascript" src="/static/js/jquery.material-cards.min.js"></script>
+    <script type="text/javascript" src="/static/js/dropify.min.js"></script>
+    <script type="text/javascript" src="/static/js/app/my_resume.js"></script>
+{% endblock %}

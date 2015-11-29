@@ -1,0 +1,110 @@
+<!--
+    扩展自base.html，直接继承主页面，负责展示“招聘日历”页面的内容
+    包括FullCalendar的配置，增加新事件、事件编辑等处理，以及发布新事件时的Modal设置和其中的datetimepicker设置
+    该页面js文件由block js渲染，不会在其它页面中进行加载
+ -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+    <style>
+        #deletebtn {
+            float: left;
+        }
+
+        .fc-content:hover {
+            cursor: pointer;
+        }
+
+    </style>
+
+    <div class="panel-body">
+        <div id='calendar'></div>
+    </div>
+
+    <!-- 日历中增加新事件 Modal -->
+    <div class="modal fade" id="new_event" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="new_event_title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="news_form" class="cd-form floating-labels">
+                        <div class="errormsg">
+                            <label class="cd-label" for="event">
+                                <i class="fa fa-pencil-square-o"></i>&nbsp;事件描述
+                            </label>
+                            <input type="text" id="event" required>
+                        </div>
+                        <div>
+                            <label class="cd-label" for="color">
+                                <i class="fa fa-pencil-square-o"></i>&nbsp;背景颜色
+                            </label>
+                            <input type="text" id="color" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal" id="closebtn">关闭
+                    </button>
+                    <button type="submit" class="btn btn-info" id="commitbtn">发布</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 日历中修改已有事件 Modal -->
+    <div class="modal fade" id="modify_event" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modify_title"></h4>
+                </div>
+                <div class="modal-body">
+                    <form id="news_form" class="cd-form floating-labels">
+                        <div class="errormsg">
+                            <input type="text" id="modify_event_title" required>
+                        </div>
+                        <div>
+                            <label class="cd-label" for="color">
+                                <i class="fa fa-pencil-square-o"></i>&nbsp;背景颜色
+                            </label>
+                            <input type="text" id="modify_color" required>
+                        </div>
+                        <div>
+                            <input type="text" readonly id="start_time" required>
+                        </div>
+                        <div>
+                            <input type="text" readonly id="end_time" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-danger" id="deletebtn">删除</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" id="closebtn2">关闭</button>
+                    <button type="submit" class="btn btn-info" id="modifybtn">发布</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <button type="button" class="btn  hidden" id="new_event_btn" data-toggle="modal" data-target="#new_event"></button>
+    <button type="button" class="btn  hidden" id="modify_event_btn" data-toggle="modal"
+            data-target="#modify_event"></button>
+
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="/static/js/app/calendar.js"></script>
+{% endblock %}
+

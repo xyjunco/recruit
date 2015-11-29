@@ -1,0 +1,123 @@
+<!--
+    扩展自base.html，直接继承主页面，负责展示“招聘动态”页面的内容
+    包括datatables配置，发布新招聘动态时的Modal设置，以及其中的datetimepicker设置
+    该页面js文件由block js渲染，不会在其它页面中进行加载
+ -->
+
+{% extends "base.html" %}
+
+{% block content %}
+    <style>
+        tr {
+            cursor: pointer;
+        }
+
+        .dataTables_filter {
+            display: none;
+        }
+
+        tbody tr:hover {
+            color: #4cb6cb;
+        }
+    </style>
+
+    <div class="panel-body">
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-left">
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-default navbar-btn" data-toggle="modal"
+                            data-target="#create_news">
+                        <i class="fa fa-pencil-square-o"></i>&nbsp; 发布新动态
+                    </button>
+                </ul>
+
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-search"></span>
+                                                </span>
+                            <input type="text" id="searchbox" class="form-control"
+                                   placeholder="动态搜索">
+                        </div>
+                    </div>
+                    <button type="reset" id="resetbtn" class="btn btn-default">重置</button>
+                </form>
+            </div>
+        </nav>
+
+        <table id="recruitnews" class="table table-striped" cellspacing="0"
+               width="100%">
+            <thead>
+            <tr>
+                <th>标题</th>
+                <th>发布人</th>
+                <th>发布时间</th>
+                <th>截至时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+
+
+    <!-- 发布新动态 Modal -->
+    <div class="modal fade" id="create_news" tabindex="-1" role="dialog"
+         aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <form id="news_form" class="cd-form floating-labels">
+                        <!--
+                            <div class="error-message">
+                                <p>Please enter a valid email address</p>
+                            </div>
+                        -->
+                        <div class="errormsg">
+                            <label class="cd-label" for="title">
+                                <i class="fa fa-pencil-square-o"></i>&nbsp;标题（必填）
+                            </label>
+                            <input type="text" id="title" required>
+                        </div>
+                        <div>
+                            <label class="cd-label" for="company">
+                                <i class="fa fa-building-o"></i>&nbsp;企业名称（必填）</label>
+                            <input type="text" id="company" required>
+                        </div>
+                        <div>
+                            <label class="cd-label" for="endtime">
+                                <i class="fa fa-calendar-times-o"></i>&nbsp;截至日期
+                            </label>
+                            <input type="text" readonly id="endtime">
+                        </div>
+                        <div>
+                            <label class="cd-label" for="cd-textarea">
+                                <i class="fa fa-pencil"></i>&nbsp;详细信息（必填）
+                            </label>
+                            <textarea required id="detail"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default"
+                            data-dismiss="modal" id="closebtn">关闭
+                    </button>
+                    <button type="submit" class="btn btn-info" id="commitbtn">发布</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+<!-- 载入自己本页面的js文件 -->
+{% block js %}
+    <script type="text/javascript" src="/static/js/app/news.js"></script>
+{% endblock %}
+

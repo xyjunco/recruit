@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="panel-body">
+        <div id="pdf"></div>
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="/static/js/app/resume.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            var myPDF = new PDFObject({
+                url: '{{ resume_url }}'
+            }).embed('pdf');
+        });
+    </script>
+{% endblock %}
