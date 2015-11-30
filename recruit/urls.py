@@ -52,5 +52,8 @@ urlpatterns = [
     url(r'^change_resume_gathered/', ajax.change_resume_gathered, name='change_resume_gathered'),
     url(r'^delete_resume/', ajax.delete_resume, name='delete_resume'),
 
+    # 成员简历接口
+    url(r'^resume_by_group/', views.resume_by_group, name='resume_by_group'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

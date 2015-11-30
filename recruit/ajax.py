@@ -390,8 +390,6 @@ def delete_resume(request):
     return HttpResponse(json.dumps({'result': True, 'message': 'success'}))
 
 
-
-
 def create_news(id, name, title, time, url):
     '''
     向News表中新增一条新动态

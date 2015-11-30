@@ -4,8 +4,6 @@
 
     <link rel="stylesheet" href="/static/css/dropify.min.css" type="text/css">
 
-
-
     <div class="panel-body">
 
         <!-- 上方导航条 -->
@@ -43,10 +41,14 @@
 
                             <div class="mc-footer">
                                 <div class="col-md-12 col-sm-12 col-xs-12">
+                                    {# 如果当前简历状态被标记为可收集，则默认checkbox为勾选状态 #}
                                     {% if resume.is_gathered %}
-                                        <input type="checkbox" class="gather" value="{{ resume.id }}" checked>可被收集
+                                        <input type="checkbox" class="gather" id="checkboxSuccess"
+                                               value="{{ resume.id }}" checked>可被收集
+                                        {# 如果为不可被收集状态，checkbox则为不可选状态 #}
                                     {% else %}
-                                        <input type="checkbox" class="gather" value="{{ resume.id }}">可被收集
+                                        <input type="checkbox" class="gather" id="checkboxError"
+                                               value="{{ resume.id }}">可被收集
                                     {% endif %}
                                 </div>
                                 <div class="btn-group btn-group-sm" role="group" aria-labelledby>
@@ -71,9 +73,8 @@
                 <p>您当前还未上传简历，赶快点击右上方按钮上传自己的简历吧！</p>
             {% endif %}
         </div>
-
-
     </div>
+
 
     <!-- 简历上传 Modal -->
     <div class="modal fade" id="upload_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -93,6 +94,17 @@
                                 <i class="fa fa-pencil-square-o"></i>&nbsp;简历描述（版本、用途等）
                             </label>
                             <input type="text" id="resume_desc">
+                        </div>
+                        <div class="tags">
+                            <h4>Tags</h4>
+                            <p class="cd-select icon">
+                                <select class="budget" id="tags">
+                                    <option value="" hidden disabled selected>请选择面试类别</option>
+                                    <option value="0">Java</option>
+                                    <option value="1">后台开发</option>
+                                    <option value="2">PHP</option>
+                                </select>
+                            </p>
                         </div>
                     </form>
                 </div>

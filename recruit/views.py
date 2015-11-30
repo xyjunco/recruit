@@ -70,14 +70,27 @@ def my_resume(request):
 
 def resume(request):
     '''
-
-    :param request:
-    :return:
+    个人简历具体页面，页面负责展示简历ID所对应简历的具体信息，简历ID通过GET方式传递
+    :param request: request对象
+    :return: 渲染后的resume页面，其中包括简历展示和他人评论内容。该页面继承自base.html
     '''
     resume_id = request.GET.get('id')
     obj = ResumeMsg.objects.filter(id=resume_id)[0]
 
-    return render_to_response('resume.html', {'resume_url': obj.resume_path.url})
+    return render_to_response('resume.html', {
+        'newslist': get_newslist(),
+        'resume_url': obj.resume_path.url
+    })
+
+
+def resume_by_group(request):
+    '''
+    边栏中“成员简历”页面，负责按级展示成员简历
+    :param request: request
+    :return:
+    '''
+
+    return render_to_response('resume_by_group.html', {'newslist': get_newslist()})
 
 
 def get_newslist():
