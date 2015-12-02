@@ -170,7 +170,9 @@
 
                     <!-- 页面正文部分，各页面通过这个block渲染过来 -->
                     <section class="vbox">
-                        {% block content %} {% endblock %}
+                        <section class="scrollable">
+                            {% block content %} {% endblock %}
+                        </section>
                     </section>
 
                     <aside class="aside-md bg-light dk" id="sidebar">
