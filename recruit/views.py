@@ -79,7 +79,9 @@ def resume(request):
 
     return render_to_response('resume.html', {
         'newslist': get_newslist(),
-        'resume_url': obj.resume_path.url
+        # 这里如果返回obj.resume_path.url，会将中文字符进行url编码处理，再进行访问时解析会出错
+        # obj.resume_path.name会返回中文相对路径，手动加上'/media/'后补全为绝对路径返回前端
+        'resume_url': '/media/' + obj.resume_path.name
     })
 
 
