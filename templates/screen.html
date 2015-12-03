@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="panel-body">
+
+        <!-- 上方导航条 -->
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav navbar-left">
+                    <a class="navbar-brand" href="#"><i class="fa fa-filter"></i>&nbsp;&nbsp;简历筛选</a>
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <span><i class="fa fa-filter"></i></span>
+                            </span>
+                            <input type="text" id="searchbox" class="form-control"
+                                   placeholder="简历标签过滤">
+                        </div>
+                    </div>
+                    <button type="reset" id="resetbtn" class="btn btn-default">重置</button>
+                </form>
+            </div>
+        </nav>
+
+
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script type="application/javascript" src="/static/js/app/screen.js"></script>
+{% endblock %}

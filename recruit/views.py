@@ -95,6 +95,16 @@ def resume_by_group(request):
     return render_to_response('resume_by_group.html', {'newslist': get_newslist()})
 
 
+def screen(request):
+    '''
+    边栏中“简历筛选”页面，用来针对指定的标签进行过滤
+    :param request: request对象
+    :return:
+    '''
+
+    return render_to_response('screen.html', {'newslist': get_newslist()})
+
+
 def get_newslist():
     '''
     从数据库News表中取出最新的news_count条新闻

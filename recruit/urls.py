@@ -55,5 +55,8 @@ urlpatterns = [
     # 成员简历接口
     url(r'^resume_by_group/', views.resume_by_group, name='resume_by_group'),
 
+    # 简历过滤接口
+    url(r'^screen/', views.screen, name='screen')
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
