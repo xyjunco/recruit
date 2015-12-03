@@ -56,7 +56,10 @@ urlpatterns = [
     url(r'^resume_by_group/', views.resume_by_group, name='resume_by_group'),
 
     # 简历过滤接口
-    url(r'^screen/', views.screen, name='screen')
+    url(r'^screen/', views.screen, name='screen'),
+
+    # 标签相关接口
+    url(r'^get_tags/', ajax.get_tags, name='get_tags')
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

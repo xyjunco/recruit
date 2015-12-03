@@ -86,45 +86,46 @@ $(function () {
         var title = $('#title').val();
         var company = $('#company').val();
         var interview_time = $('#interview_time').val();
-        var interview_way = $("input[name='radio-button']:checked").val();
+        var interview_way = $("input[name='btn']:checked").val();
         var interview_class = $('#interview_class').val();
         var detail = $('#detail').val();
 
-        // 如果之前有错误提示，先干掉，防止重复提示
-        $('.error-message').remove();
+        // 如果之前有错误，先去掉之前的错误提示
+        $('form div').removeClass('has-error');
 
-        // 如果没有输入标题
         if (title == '') {
-            $('.errormsg').before('<div class="error-message"><p>请输入招聘动态标题</p> </div>');
-            $('#title').addClass('error');
+            $('#title').parent().addClass('has-error');
+            toastr.error('请填写动态标题', '提示');
             return false;
         }
-
-        // 如果没有输入企业名称
         if (company == '') {
-            $('.errormsg').before('<div class="error-message"><p>请输入招聘公司</p> </div>');
-            $('#company').addClass('error');
+            $('#company').parent().addClass('has-error');
+            toastr.error('请填写面试企业', '提示');
             return false;
         }
-
-        // 如果没有选择面试时间
         if (interview_time == '') {
-            $('.errormsg').before('<div class="error-message"><p>请输入面试时间</p> </div>');
-            $('#interview_time').addClass('error');
+            $('#interview_time').parent().addClass('has-error');
+            toastr.error('请选择面试时间', '提示');
             return false;
         }
 
-        // 如果没有选择面试类别
+        // 如果没有按钮被checked
+        if (!interview_way) {
+            interview_way = 0;
+        }
+        if (interview_way == 0) {
+            $('input[name="btn"]').parents('.form-group').addClass('has-error');
+            toastr.error('请选择面试形式', '提示');
+            return false;
+        }
         if (interview_class == null) {
-            $('.errormsg').before('<div class="error-message"><p>请选择面试类别</p> </div>');
-            $('#interview_class').addClass('error');
+            $('#interview_class').parent().addClass('has-error');
+            toastr.error('请选择面试类别', '提示');
             return false;
         }
-
-        // 如果没有输入详细信息
         if (detail == '') {
-            $('.errormsg').before('<div class="error-message"><p>请输入详细信息（岗位、技能要求、工作地等）</p> </div>');
-            $('#detail').addClass('error');
+            $('#detail').parent().addClass('has-error');
+            toastr.error('请填写面试内容整理', '提示');
             return false;
         }
 
@@ -172,6 +173,15 @@ $(function () {
         autoclose: true,
         todayHighlight: true,
         language: 'zh-CN'
+    });
+
+    // 初始化Markdown
+    $('#detail').markdown({
+        autofocus: true,
+        savable: false,
+        resize: 'vertical',
+        iconlibrary: 'fa',
+        language: 'zh'
     });
 
 });

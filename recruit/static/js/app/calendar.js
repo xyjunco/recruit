@@ -226,13 +226,23 @@ $(function () {
         var start = startpicker.val();
         var end = endpicker.val();
 
-        // 如果之前有错误提示，先干掉，防止重复提示
-        $('.error-message').remove();
+        // 如果之前有错误，先去掉之前的错误提示
+        $('form div').removeClass('has-error');
 
         // 如果没有输入标题
-        if (event == '') {
-            $('.errormsg').before('<div class="error-message"><p>请输入事件</p> </div>');
-            $('#modify_title').addClass('error');
+        if (modify_event_title == '') {
+            $('#modify_event_title').parent().addClass('has-error');
+            toastr.error('请填写事件标题', '提示');
+            return false;
+        }
+        if (start == '') {
+            $('#start').parent().addClass('has-error');
+            toastr.error('请填写事件开始时间', '提示');
+            return false;
+        }
+        if (end == '') {
+            $('#end').parent().addClass('has-error');
+            toastr.error('请填写事件结束时间', '提示');
             return false;
         }
 
@@ -268,13 +278,13 @@ $(function () {
         // 获取输入的事件
         var event = $('#event').val();
 
-        // 如果之前有错误提示，先干掉，防止重复提示
-        $('.error-message').remove();
+        // 如果之前有错误，先去掉之前的错误提示
+        $('form div').removeClass('has-error');
 
         // 如果没有输入标题
         if (event == '') {
-            $('.errormsg').before('<div class="error-message"><p>请输入事件</p> </div>');
-            $('#event').addClass('error');
+            $('#event').parent().addClass('has-error');
+            toastr.error('请填写事件标题', '提示');
             return false;
         }
 
@@ -317,7 +327,7 @@ $(function () {
             inline: false,
             letterCase: 'lowercase',
             opacity: false,
-            position: 'bottom right',
+            position: 'bottom left',
             show: null,
             showSpeed: 100,
             theme: 'bootstrap'

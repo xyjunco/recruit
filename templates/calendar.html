@@ -33,18 +33,14 @@
                     <h4 class="modal-title" id="new_event_title"></h4>
                 </div>
                 <div class="modal-body">
-                    <form id="news_form" class="cd-form floating-labels">
-                        <div class="errormsg">
-                            <label class="cd-label" for="event">
-                                <i class="fa fa-pencil-square-o"></i>&nbsp;事件描述
-                            </label>
-                            <input type="text" id="event" required>
+                    <form id="news_form">
+                        <div class="form-group">
+                            <label class="control-label" for="event"><i class="fa fa-pencil-square-o"></i>&nbsp;事件描述</label>
+                            <input type="text" class="form-control" id="event" required>
                         </div>
-                        <div>
-                            <label class="cd-label" for="color">
-                                <i class="fa fa-pencil-square-o"></i>&nbsp;背景颜色
-                            </label>
-                            <input type="text" id="color" required>
+                        <div class="form-group">
+                            <label for="color"><i class="fa fa-eyedropper"></i>&nbsp;背景颜色</label>
+                            <input type="text" class="form-control" id="color" required>
                         </div>
                     </form>
                 </div>
@@ -69,21 +65,22 @@
                     <h4 class="modal-title" id="modify_title"></h4>
                 </div>
                 <div class="modal-body">
-                    <form id="news_form" class="cd-form floating-labels">
-                        <div class="errormsg">
-                            <input type="text" id="modify_event_title" required>
+                    <form id="news_form">
+                        <div class="form-group">
+                            <label class="control-label" for="color"><i class="fa fa-pencil-square-o"></i>&nbsp;事件描述</label>
+                            <input type="text" class="form-control" id="modify_event_title" required>
                         </div>
-                        <div>
-                            <label class="cd-label" for="color">
-                                <i class="fa fa-pencil-square-o"></i>&nbsp;背景颜色
-                            </label>
-                            <input type="text" id="modify_color" required>
+                        <div class="form-group">
+                            <label class="control-label" for="color"><i class="fa fa-eyedropper"></i>&nbsp;背景颜色</label>
+                            <input type="text" class="form-control" id="modify_color" required>
                         </div>
-                        <div>
-                            <input type="text" readonly id="start_time" required>
+                        <div class="form-group">
+                            <label class="control-label" for="color"><i class="fa fa-clock-o"></i>&nbsp;开始时间</label>
+                            <input type="text" class="form-control" readonly id="start_time" required>
                         </div>
-                        <div>
-                            <input type="text" readonly id="end_time" required>
+                        <div class="form-group">
+                            <label class="control-label" for="color"><i class="fa fa-clock-o"></i>&nbsp;结束时间</label>
+                            <input type="text" class="form-control" readonly id="end_time" required>
                         </div>
                     </form>
                 </div>

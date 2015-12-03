@@ -85,27 +85,22 @@ $(function () {
         var endtime = $('#endtime').val();
         var detail = $('#detail').val();
 
-        // 如果之前有错误提示，先干掉，防止重复提示
-        $('.error-message').remove();
+        // 如果之前有错误，先去掉之前的错误提示
+        $('form div').removeClass('has-error');
 
-        // 如果没有输入标题
         if (title == '') {
-            $('.errormsg').before('<div class="error-message"><p>请输入招聘动态标题</p> </div>');
-            $('#title').addClass('error');
+            $('#title').parent().addClass('has-error');
+            toastr.error('请填写动态标题', '提示');
             return false;
         }
-
-        // 如果没有输入企业名称
         if (company == '') {
-            $('.errormsg').before('<div class="error-message"><p>请输入招聘公司</p> </div>');
-            $('#company').addClass('error');
+            $('#company').parent().addClass('has-error');
+            toastr.error('请填写招聘企业', '提示');
             return false;
         }
-
-        // 如果没有输入详细信息
         if (detail == '') {
-            $('.errormsg').before('<div class="error-message"><p>请输入详细信息（岗位、技能要求、工作地等）</p> </div>');
-            $('#detail').addClass('error');
+            $('#detail').parent().addClass('has-error');
+            toastr.error('请填写详细信息', '提示');
             return false;
         }
 
@@ -137,10 +132,8 @@ $(function () {
     // 关闭modal的时候将表单进行清空
     $('#closebtn').click(function () {
         // 去掉所有的错误提示样式
-        $('.error-message').remove();
+        $('form div').removeClass('has-error');
         // 去掉所有input框的error样式
-        $('input').removeClass('error');
-        $('textarea').removeClass('error');
         $('#news_form')[0].reset();
 
     });
@@ -152,6 +145,15 @@ $(function () {
         autoclose: true,
         todayHighlight: true,
         language: 'zh-CN'
+    });
+
+    // 初始化Markdown
+    $('#detail').markdown({
+        autofocus: true,
+        savable: false,
+        resize: 'vertical',
+        iconlibrary: 'fa',
+        language: 'zh'
     });
 
 

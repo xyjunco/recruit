@@ -119,18 +119,6 @@ $(function () {
     }
 
 
-    // 初始化文件上传框
-    $('.dropify').dropify({
-        messages: {
-            'default': '点击选择文件 或拖拽文件到这里</br>仅支持PDF格式',
-            'replace': '点击或拖拽文件到这里来替换文件',
-            'remove': '移除文件',
-            'error': '对不起，您的简历太大了</br>最大允许文件大小：500K'
-        },
-        // 设置可上传简历的最大大小
-        maxFileSize: '1M'
-    });
-
     // 初始化简历样式
     $('.material-card').materialCard({
         icon_close: 'fa-arrow-left',
@@ -232,5 +220,35 @@ $(function () {
             }
         });
     });
+
+
+    // 初始化文件上传框
+    $('.dropify').dropify({
+        messages: {
+            'default': '点击选择文件 或拖拽文件到这里</br>仅支持PDF格式',
+            'replace': '点击或拖拽文件到这里来替换文件',
+            'remove': '移除文件',
+            'error': '对不起，您的简历太大了</br>最大允许文件大小：500K'
+        },
+        // 设置可上传简历的最大大小
+        maxFileSize: '1M'
+    });
+
+
+    var countries = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        prefetch: '/get_tags/'
+    });
+
+    $('#tags').tagsinput({
+        typeaheadjs: {
+            name: 'tags',
+            displayKey: 'name',
+            valueKey: 'name',
+            source: countries
+        }
+    });
+
 
 });

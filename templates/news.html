@@ -70,35 +70,29 @@
          aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="new_event_title">新招聘动态</h4>
+                </div>
                 <div class="modal-body">
-                    <form id="news_form" class="cd-form floating-labels">
-                        <!--
-                            <div class="error-message">
-                                <p>Please enter a valid email address</p>
-                            </div>
-                        -->
-                        <div class="errormsg">
-                            <label class="cd-label" for="title">
-                                <i class="fa fa-pencil-square-o"></i>&nbsp;标题（必填）
-                            </label>
-                            <input type="text" id="title" required>
+                    <form id="news_form">
+                        <div class="form-group">
+                            <label class="control-label" for="title"><i class="fa fa-pencil-square-o"></i>&nbsp;标题（必填）</label>
+                            <input type="text" class="form-control" id="title" required>
                         </div>
-                        <div>
-                            <label class="cd-label" for="company">
-                                <i class="fa fa-building-o"></i>&nbsp;企业名称（必填）</label>
-                            <input type="text" id="company" required>
+                        <div class="form-group">
+                            <label class="control-label" for="company"><i class="fa fa-building-o"></i>&nbsp;企业名称（必填）</label>
+                            <input type="text" class="form-control" id="company" required>
                         </div>
-                        <div>
-                            <label class="cd-label" for="endtime">
-                                <i class="fa fa-calendar-times-o"></i>&nbsp;截至日期
-                            </label>
-                            <input type="text" readonly id="endtime">
+                        <div class="form-group">
+                            <label class="control-label" for="endtime"><i class="fa fa-calendar-times-o"></i>&nbsp;截至日期</label>
+                            <input type="text" class="form-control" readonly id="endtime">
                         </div>
-                        <div>
-                            <label class="cd-label" for="cd-textarea">
-                                <i class="fa fa-pencil"></i>&nbsp;详细信息（必填）
-                            </label>
-                            <textarea required id="detail"></textarea>
+                        <div class="form-group">
+                            <label class="control-label" for="detail"><i class="fa fa-pencil"></i>&nbsp;详细信息（必填）</label>
+                            <textarea id="detail" class="form-control" style="height: 200px;"></textarea>
+
                         </div>
                     </form>
                 </div>

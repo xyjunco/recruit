@@ -390,6 +390,17 @@ def delete_resume(request):
     return HttpResponse(json.dumps({'result': True, 'message': 'success'}))
 
 
+def get_tags(request):
+    '''
+    标签接口：从数据库中取出所有可用标签名称
+    :param request: request对象
+    :return: 标签名list
+    '''
+    names = ['java', 'php', 'linux', 'python', 'c++', 'hadoop', 'jvm', 'vim']
+
+    return HttpResponse(json.dumps(names))
+
+
 def create_news(id, name, title, time, url):
     '''
     向News表中新增一条新动态

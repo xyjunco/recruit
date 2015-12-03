@@ -75,67 +75,56 @@
          aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="new_event_title">新面经</h4>
+                </div>
                 <div class="modal-body">
-                    <form id="news_form" class="cd-form floating-labels">
-                        <!--
-                            <div class="error-message">
-                                <p>Please enter a valid email address</p>
+                    <form id="news_form">
+                        <div class="form-group">
+                            <label class="control-label" for="title"><i class="fa fa-pencil-square-o"></i>&nbsp;标题</label>
+                            <input type="text" class="form-control" id="title" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="company"><i class="fa fa-building-o"></i>&nbsp;面试企业</label>
+                            <input type="text" class="form-control" id="company" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="interview_time"><i class="fa fa-calendar-times-o"></i>&nbsp;面试日期</label>
+                            <input type="text" readonly class="form-control" id="interview_time" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"><i class="fa fa-phone"></i>&nbsp;面试形式</label>
+                            <div class="row" style="text-align: center">
+                                <div class="btn-group" data-toggle="buttons">
+                                    <label class="btn btn-default control-label">
+                                        <input class="form-control" type="radio" name="btn" value="1"/> 视频面试
+                                    </label>
+                                    <label class="btn btn-default control-label">
+                                        <input class="form-control" type="radio" name="btn" value="2"/> 电话面试
+                                    </label>
+                                    <label class="btn btn-default control-label">
+                                        <input class="form-control" type="radio" name="btn" value="3"/> 现场面试
+                                    </label>
+                                </div>
                             </div>
-                        -->
-                        <div class="errormsg">
-                            <label class="cd-label" for="title">
-                                <i class="fa fa-pencil-square-o"></i>&nbsp;标题
-                            </label>
-                            <input type="text" id="title" required>
                         </div>
-                        <div>
-                            <label class="cd-label" for="company">
-                                <i class="fa fa-building-o"></i>&nbsp;面试企业</label>
-                            <input type="text" id="company" required>
+                        <div class="form-group">
+                            <label class="control-label" for="interview_class"><i class="fa fa-bars"></i>&nbsp;面试类别</label>
+                            <select class="form-control" required id="interview_class">
+                                <option value="" hidden disabled selected>请选择面试类别</option>
+                                <option value="1">一面</option>
+                                <option value="2">二面</option>
+                                <option value="3">三面</option>
+                                <option value="4">四面</option>
+                                <option value="5">HR面</option>
+                                <option value="6">不知道第几面</option>
+                            </select>
                         </div>
-                        <div>
-                            <label class="cd-label" for="interview_time">
-                                <i class="fa fa-calendar-times-o"></i>&nbsp;面试日期
-                            </label>
-                            <input type="text" readonly id="interview_time" required>
-                        </div>
-                        <div class="interview interview-way">
-                            <h4>面试形式</h4>
-                            <ul class="cd-form-list">
-                                <li>
-                                    <input type="radio" name="radio-button" id="cd-radio-1" value="1" checked>
-                                    <label for="cd-radio-1">电话面试</label>
-                                </li>
-                                <li>
-                                    <input type="radio" name="radio-button" id="cd-radio-2" value="2">
-                                    <label for="cd-radio-2">视频面试</label>
-                                </li>
-                                <li>
-                                    <input type="radio" name="radio-button" id="cd-radio-3" value="3">
-                                    <label for="cd-radio-3">现场面试</label>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="interview interview_class">
-                            <h4>面试类别</h4>
-
-                            <p class="cd-select icon">
-                                <select class="budget" required id="interview_class">
-                                    <option value="" hidden disabled selected>请选择面试类别</option>
-                                    <option value="0">一面</option>
-                                    <option value="1">二面</option>
-                                    <option value="2">三面</option>
-                                    <option value="3">四面</option>
-                                    <option value="4">HR面</option>
-                                    <option value="5">不知道第几面</option>
-                                </select>
-                            </p>
-                        </div>
-                        <div>
-                            <label class="cd-label" for="cd-textarea">
-                                <i class="fa fa-pencil"></i>&nbsp;面试内容整理
-                            </label>
-                            <textarea required id="detail"></textarea>
+                        <div class="form-group">
+                            <label class="control-label" for="cd-textarea"><i class="fa fa-pencil"></i>&nbsp;面试内容整理</label>
+                            <textarea required class="form-control" id="detail"></textarea>
                         </div>
                     </form>
                 </div>

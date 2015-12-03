@@ -3,6 +3,8 @@
 {% block content %}
 
     <link rel="stylesheet" href="/static/css/dropify.min.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/bootstrap-tagsinput.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/bootstrap-tagsinput-typeahead.css" type="text/css">
 
     <div class="panel-body">
 
@@ -88,23 +90,14 @@
                 <div class="modal-body">
                     <input type="file" id="upload_file" class="dropify" accept="application/pdf"/>
 
-                    <form class="cd-form floating-labels">
-                        <div>
-                            <label class="cd-label" for="resume_desc">
-                                <i class="fa fa-pencil-square-o"></i>&nbsp;简历描述（版本、用途等）
-                            </label>
-                            <input type="text" id="resume_desc">
+                    <form style="margin-top: 5%">
+                        <div class="form-group">
+                            <label for="tags"><i class="fa fa-tag">&nbsp;简历标签&nbsp;回车键使标签生效</i></label>
+                            <input type="text" class="form-control" id="tags">
                         </div>
-                        <div class="tags">
-                            <h4>Tags</h4>
-                            <p class="cd-select icon">
-                                <select class="budget" id="tags">
-                                    <option value="" hidden disabled selected>请选择面试类别</option>
-                                    <option value="0">Java</option>
-                                    <option value="1">后台开发</option>
-                                    <option value="2">PHP</option>
-                                </select>
-                            </p>
+                        <div class="form-group">
+                            <label for="resume_desc"><i class="fa fa-pencil-square-o"></i>&nbsp;简历描述（版本、用途等）</label>
+                            <input type="text" class="form-control" id="resume_desc">
                         </div>
                     </form>
                 </div>
@@ -123,5 +116,7 @@
 {% block js %}
     <script type="text/javascript" src="/static/js/jquery.material-cards.min.js"></script>
     <script type="text/javascript" src="/static/js/dropify.min.js"></script>
+    <script type="text/javascript" src="/static/js/typehead.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-tagsinput.min.js"></script>
     <script type="text/javascript" src="/static/js/app/my_resume.js"></script>
 {% endblock %}
