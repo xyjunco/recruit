@@ -15,7 +15,7 @@ class ResumeCommentAdmin(admin.TabularInline):
 
 class ResumeMsgAdmin(admin.ModelAdmin):
     inlines = [ResumeCommentAdmin]
-    fields = ['person_id', 'person_name', 'resume_name', 'resume_path', 'upload_time', 'is_gathered']
+    fields = ['person_id', 'person_name', 'resume_name', 'resume_path', 'upload_time', 'is_gathered', 'resume_tags']
     list_display = ['person_name', 'resume_name', 'resume_path', 'upload_time', 'is_gathered']
     search_fields = ['person_name', 'resume_name', 'upload_time']
     list_filter = ['upload_time']
@@ -56,8 +56,15 @@ class CalendarAdmin(admin.ModelAdmin):
     list_filter = ['event_starttime']
 
 
+class TagAdmin(admin.ModelAdmin):
+    fields = ['tag_name', 'tag_to_resume']
+    list_display = ['tag_name', 'tag_to_resume']
+    search_fields = ['tag_name']
+
+
 admin.site.register(ResumeMsg, ResumeMsgAdmin)
 admin.site.register(RecruitMsg, RecruitMsgAdmin)
 admin.site.register(Interview, InterviewAdmin)
 admin.site.register(News, NewsAdmin)
 admin.site.register(Calendar, CalendarAdmin)
+admin.site.register(Tag, TagAdmin)

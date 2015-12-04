@@ -9,10 +9,21 @@ $(function () {
         'Orange', 'Deep-Orange', 'Brown', 'Grey', 'Blue-Grey'];
 
     $('#commitbtn').click(function () {
+        // 如果之前有错误，先去掉之前的错误提示
+        $('form div').removeClass('has-error');
+
         var resume_desc = $('#resume_desc').val();
+        var tags = $("#tags").tagsinput('items');
+
         filelist = document.getElementById('upload_file').files;
         if (!filelist.length) {
             toastr.warning('您还没有选择任何文件', '提示');
+            return false;
+        }
+
+        if (tags.length == 0) {
+            $('#tags').parent().addClass('has-error');
+            toastr.warning('请至少为您的简历增加一个标签', '提示');
             return false;
         }
 
@@ -22,6 +33,7 @@ $(function () {
             var formData = new FormData();
             // 建立一个upload表单项，值为上传的文件
             formData.append('file', file);
+            formData.append('tags', JSON.stringify(tags));
             formData.append('resume_desc', resume_desc);
             formData.append('csrfmiddlewaretoken', get_cookie('csrftoken'));
 
