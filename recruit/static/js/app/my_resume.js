@@ -247,9 +247,11 @@ $(function () {
     });
 
 
+    // Twitter Typehead.js 这个太麻烦了，文档看不明白。总之是用来提示标签补全的
     var tag = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
+        // 所有标签全部存在LocolStorage中，可能获取到的不是数据库中最新的标签
         prefetch: '/get_tags/'
     });
 

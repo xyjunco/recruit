@@ -10,6 +10,7 @@ import json
 import os
 
 from models import *
+from local import handle_resume2tags, handle_tag2resume, remove_resume_id_from_tag
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
@@ -303,6 +304,7 @@ def upload_resume(request):
     '''
     resume = request.FILES.get('file', '')
     resume_desc = request.POST['resume_desc']
+    tags = json.loads(request.POST['tags'])
 
     if resume:
         # 文件合法性二次判断
@@ -329,6 +331,11 @@ def upload_resume(request):
         # 上传成功并存储成功后，调用pdf2img模块来生成该简历的缩略图，用于前端展示
         os.system('pdf2img %s' % obj.resume_path.path)
         obj.resume_thumb = '/static/thumbs/' + os.path.basename(obj.resume_path.path).split('.')[0] + '.png'
+        # 处理简历和标签之间的对应关系
+        tag_list = handle_resume2tags(tags)
+        handle_tag2resume(obj.id, tag_list)
+
+        obj.resume_tags = json.dumps(tag_list)
         obj.save()
 
     else:
@@ -381,6 +388,7 @@ def delete_resume(request):
 
     try:
         obj = ResumeMsg.objects.filter(id=id)[0]
+        remove_resume_id_from_tag(obj)
         obj.delete()
     except Exception, e:
         logging.error(u'{0}在删除简历ID={1}时发生了错误：{2}'.format(test_people, id, e))
@@ -396,9 +404,10 @@ def get_tags(request):
     :param request: request对象
     :return: 标签名list
     '''
-    names = ['Java', 'php', 'linux', 'python', 'c++', 'hadoop', 'JVM', 'vim']
-
-    return HttpResponse(json.dumps(names))
+    # 从Tag表中取出每一个tag_name值，注意values_list返回结果仍为QuerySet
+    tags = Tag.objects.values_list('tag_name', flat=True)
+    # 对每一个tag_name对象作用于str方法，序列化后返回
+    return HttpResponse(json.dumps(map(str, tags)))
 
 
 def create_news(id, name, title, time, url):
