@@ -14,8 +14,8 @@ $(function () {
 
         var resume_desc = $('#resume_desc').val();
         var tags = $("#tags").tagsinput('items');
+        var filelist = document.getElementById('upload_file').files;
 
-        filelist = document.getElementById('upload_file').files;
         if (!filelist.length) {
             toastr.warning('您还没有选择任何文件', '提示');
             return false;
@@ -247,7 +247,7 @@ $(function () {
     });
 
 
-    var countries = new Bloodhound({
+    var tag = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: '/get_tags/'
@@ -256,9 +256,8 @@ $(function () {
     $('#tags').tagsinput({
         typeaheadjs: {
             name: 'tags',
-            displayKey: 'name',
-            valueKey: 'name',
-            source: countries
+            autoSelect: true,
+            source: tag
         }
     });
 
