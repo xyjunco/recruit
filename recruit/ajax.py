@@ -309,7 +309,7 @@ def upload_resume(request):
         if resume.content_type != u'application/pdf':
             return HttpResponse(json.dumps({'result': False, 'message': '仅支持PDF格式文件！'}))
         if resume.size > 1024 * 1024:
-            return HttpResponse(json.dumps({'result': False, 'message': '最大仅支持上传500K的文件！'}))
+            return HttpResponse(json.dumps({'result': False, 'message': '最大仅支持上传1M的文件！'}))
 
         try:
             obj = ResumeMsg(
@@ -396,7 +396,7 @@ def get_tags(request):
     :param request: request对象
     :return: 标签名list
     '''
-    names = ['java', 'php', 'linux', 'python', 'c++', 'hadoop', 'jvm', 'vim']
+    names = ['Java', 'php', 'linux', 'python', 'c++', 'hadoop', 'JVM', 'vim']
 
     return HttpResponse(json.dumps(names))
 

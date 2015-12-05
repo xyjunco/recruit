@@ -28,6 +28,8 @@ class ResumeMsg(models.Model):
     upload_time = models.DateTimeField(verbose_name='上传时间', null=False, blank=False)
     # 当有学长收集简历时，该简历是否为可收集版本，如果设置为True，则会在收集时被自动打包
     is_gathered = models.BooleanField(verbose_name='可被收集', default=True)
+    # 标签集合，该简历被打上的标签都会在此字段以JSON串记录，值为Tag表中标签的ID值
+    resume_tags = models.TextField(verbose_name='标签值', null=True, blank=True)
 
     def __unicode__(self):
         return self.person_name + '的简历'
@@ -47,6 +49,16 @@ class ResumeComment(models.Model):
 
     def __unicode__(self):
         return self.person_name + '的评论'
+
+
+class Tag(models.Model):
+    # 标签名
+    tag_name = models.CharField(verbose_name='标签名', max_length=20, blank=False)
+    # 所拥有该标签的简历，以JSON格式记录在该字段，值为对应简历（ResumeMsg）的ID值
+    tag_to_resume = models.TextField(verbose_name='关联简历', blank=True)
+
+    def __unicode__(self):
+        return self.tag_name
 
 
 # 招聘动态信息，一条新招聘信息对应一个RecruitMsg对象
