@@ -14,8 +14,8 @@ $(function () {
 
         var resume_desc = $('#resume_desc').val();
         var tags = $("#tags").tagsinput('items');
-        var filelist = document.getElementById('upload_file').files;
 
+        filelist = document.getElementById('upload_file').files;
         if (!filelist.length) {
             toastr.warning('您还没有选择任何文件', '提示');
             return false;
@@ -26,7 +26,6 @@ $(function () {
             toastr.warning('请至少为您的简历增加一个标签', '提示');
             return false;
         }
-
 
         // 检查是否支持FormData
         if (window.FormData) {
@@ -248,7 +247,7 @@ $(function () {
     });
 
 
-    var tag = new Bloodhound({
+    var countries = new Bloodhound({
         datumTokenizer: Bloodhound.tokenizers.whitespace,
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: '/get_tags/'
@@ -257,8 +256,9 @@ $(function () {
     $('#tags').tagsinput({
         typeaheadjs: {
             name: 'tags',
-            autoSelect: true,
-            source: tag
+            displayKey: 'name',
+            valueKey: 'name',
+            source: countries
         }
     });
 
