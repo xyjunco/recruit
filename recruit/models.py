@@ -135,6 +135,7 @@ class Interview(models.Model):
 # 1.上传一份新简历
 # 2.发布了一条新的招聘动态信息
 # 3.发布了一条新的面试经历
+# 4.校招日历中事件发生变更
 class News(models.Model):
     # 新动态产生者，默认不可为空
     person_id = models.IntegerField(verbose_name='发布人ID', null=False, blank=False)

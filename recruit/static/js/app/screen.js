@@ -3,5 +3,7 @@
  */
 
 $(function () {
-
+    $('.tabs').pwstabs({
+        verticalPosition: 'right'
+    });
 });

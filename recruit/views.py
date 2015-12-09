@@ -4,10 +4,17 @@ __date__ = ''
 
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
+from markdown2 import markdown
+import logging
 import json
 
 from models import *
 
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s %(filename)s[line:%(lineno)d] %(levelname)s %(message)s',
+                    datefmt='%a, %d %b %Y %H:%M:%S',
+                    filename='recruit.log')
 
 # 最新动态所展示的新闻条数，默认为5条，可在此设置
 news_count = 5
@@ -68,13 +75,12 @@ def my_resume(request):
     })
 
 
-def resume(request):
+def resume(request, resume_id):
     '''
     个人简历具体页面，页面负责展示简历ID所对应简历的具体信息，简历ID通过GET方式传递
     :param request: request对象
     :return: 渲染后的resume页面，其中包括简历展示和他人评论内容。该页面继承自base.html
     '''
-    resume_id = request.GET.get('id')
     obj = ResumeMsg.objects.filter(id=resume_id)[0]
 
     return render_to_response('resume.html', {
@@ -83,6 +89,29 @@ def resume(request):
         # obj.resume_path.name会返回中文相对路径，手动加上'/media/'后补全为绝对路径返回前端
         'resume_url': '/media/' + obj.resume_path.name
     })
+
+
+def news(request, news_id):
+    '''
+    招聘动态具体页面，展示所发布招聘动态的具体内容，以及相关回复、评论信息
+    :param request: request对象
+    :return: news ID对应的具体招聘信息、评论信息
+    '''
+    try:
+        obj = RecruitMsg.objects.filter(id=news_id)[0]
+        data = {
+            'person_name': obj.person_name,
+            'recruit_title': obj.recruit_title,
+            'recruit_company': obj.recruit_company,
+            'recruit_posttime': obj.recruit_posttime.strftime('%Y-%m-%d %H:%M:%S'),
+            'recruit_endtime': obj.recruit_endtime.strftime('%Y-%m-%d %H:%M:%S'),
+            'recruit_content': obj.recruit_content
+        }
+    except Exception, e:
+        logging.error(u'获取招聘动态详细信息(id=%s)失败: %s' % (news_id, e))
+        data = u'获取招聘动态详细信息失败！id=%s' % news_id
+    return HttpResponse(json.dumps(data))
+
 
 
 def resume_by_group(request):

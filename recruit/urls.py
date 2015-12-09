@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^get_recruit_msg/', ajax.get_recruit_msg, name='get_recruit_msg'),
     url(r'^commit_recruit_news/', ajax.commit_recruit_news, name='commit_recruit_news'),
     url(r'^get_recruit_news/', ajax.get_recruit_news, name='get_recruit_news'),
+    url(r'^recruit/(.+)/$', views.news, name='news'),
 
     # 招聘日历接口
     url(r'^get_calendar_events/', ajax.get_calendar_events, name='get_calendar_events'),
@@ -47,7 +48,7 @@ urlpatterns = [
     url(r'^commit_communication/', ajax.commit_communication, name='commit_communication'),
 
     # 我的简历接口
-    url(r'^resume/$', views.resume, name='resume'),
+    url(r'^resume/(.+)/$', views.resume, name='resume'),
     url(r'^upload_resume/', ajax.upload_resume, name='upload_resume'),
     url(r'^change_resume_gathered/', ajax.change_resume_gathered, name='change_resume_gathered'),
     url(r'^delete_resume/', ajax.delete_resume, name='delete_resume'),

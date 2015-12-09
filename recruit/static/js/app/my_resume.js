@@ -100,7 +100,7 @@ $(function () {
         html = html + '</div>' +
             '<div class="btn-group btn-group-sm" role="group" aria-labelledby>' +
             '<button type="button" class="btn btn-success" value="' + count + 1 + '"' +
-            'onclick="window.open("/resume?id=' + message['resume_id'] + '")">' +
+            'onclick="window.open("/resume/' + message['resume_id'] + '")">' +
             '<i class="fa fa-search"></i>&nbsp;查看' +
             '</button>' +
             '<button type="button" class="btn btn-info"' +

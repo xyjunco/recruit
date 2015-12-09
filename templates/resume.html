@@ -2,12 +2,11 @@
 
 {% block content %}
 
-    <style>
-
-    </style>
+    <link rel="stylesheet" href="/static/css/jquery-comments.css" type="text/css">
 
     <div class="panel-body">
-        <div class="panel panel-default">
+        <!-- 简历预览面板 -->
+        <div class="panel panel-info">
             <div class="panel-heading">
                 <h3 class="panel-title"><i class="fa fa-search"></i>&nbsp;&nbsp;简历预览</h3>
             </div>
@@ -16,12 +15,26 @@
                 <div id="pdf"></div>
             </div>
         </div>
+
+        <!-- 评论列表面板 -->
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-commenting-o"></i>&nbsp;&nbsp;评论</h3>
+            </div>
+            <div class="panel-body">
+                <!-- 评论在此处加载 -->
+                <div id="comments-container"></div>
+            </div>
+        </div>
     </div>
+
 
 {% endblock %}
 
 {% block js %}
+    <script type="text/javascript" src="/static/js/jquery-comments.min.js"></script>
     <script type="text/javascript" src="/static/js/app/resume.js"></script>
+    <script type="text/javascript" src="http://viima.github.io/jquery-comments/demo/data/comments-data.js"></script>
     <script type="application/javascript">
         $(function () {
             var resume = new PDFObject({

@@ -40,24 +40,6 @@ $(function () {
         }
     });
 
-    // datatables 点击某一行时，触发该行的行事件，通过该条消息的Id值来获取信息
-    $('#recruitnews tbody').on('click', 'tr', function () {
-        var object = table.row(this).data();
-        var id = object.id;
-        // 通过向后台post已获得的id值，来获取该id值对应的信息
-        $.post("/get_recruit_news/",
-            {
-                id: id,
-                csrfmiddlewaretoken: get_cookie('csrftoken')
-            },
-            function (data) {
-                show_detail(JSON.parse(data));
-            });
-    });
-
-    function show_detail(data) {
-        console.log(data);
-    }
 
     // DataTables自定义搜索框，原来的搜索框位置太恶心了，单独占一个row还是在右上方
     // 不能将bFilter设置为false，否则会关闭过滤功能，只能通过CSS将.datatables_filter设置为display: none
@@ -156,5 +138,13 @@ $(function () {
         language: 'zh'
     });
 
+    // datatables 点击某一行时，触发该行的行事件，通过该条消息的Id值来获取信息
+    $('#recruitnews tbody').on('click', 'tr', function () {
+        var object = table.row(this).data();
+        var id = object.id;
+
+        window.open('/recruit/' + id);
+
+    });
 
 });
