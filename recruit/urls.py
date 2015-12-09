@@ -33,7 +33,6 @@ urlpatterns = [
     # 招聘动态相关接口
     url(r'^get_recruit_msg/', ajax.get_recruit_msg, name='get_recruit_msg'),
     url(r'^commit_recruit_news/', ajax.commit_recruit_news, name='commit_recruit_news'),
-    url(r'^get_recruit_news/', ajax.get_recruit_news, name='get_recruit_news'),
     url(r'^recruit/(.+)/$', views.news, name='news'),
 
     # 招聘日历接口

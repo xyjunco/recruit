@@ -84,28 +84,6 @@ def commit_recruit_news(request):
     return HttpResponse(json.dumps({'result': True, 'message': 'success'}))
 
 
-def get_recruit_news(request):
-    '''
-    通过前端传过来的id值，获取该id值对应的详细招聘信息
-    :param request: Request
-    :return: Json格式化后的数据
-    '''
-    recruit_id = int(request.POST['id'])
-    try:
-        obj = RecruitMsg.objects.filter(id=recruit_id)[0]
-        data = {
-            'person_name': obj.person_name,
-            'recruit_title': obj.recruit_title,
-            'recruit_company': obj.recruit_company,
-            'recruit_posttime': obj.recruit_posttime.strftime('%Y-%m-%d %H:%M:%S'),
-            'recruit_endtime': obj.recruit_endtime.strftime('%Y-%m-%d %H:%M:%S'),
-            'recruit_content': obj.recruit_content
-        }
-    except Exception, e:
-        logging.error(u'获取招聘动态详细信息(id=%s)失败: %s' % (recruit_id, e))
-        data = u'获取招聘动态详细信息失败！id=%s' % recruit_id
-    return HttpResponse(json.dumps(data))
-
 
 def get_communications_msg(request):
     '''

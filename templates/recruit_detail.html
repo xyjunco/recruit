@@ -2,17 +2,38 @@
 
 {% block content %}
 
+    <link rel="stylesheet" href="/static/css/jquery-comments.css" type="text/css">
+
     <div class="panel-body">
-        <div class="panel-heading panel-info">
-            <h3 class="panel-title">{{ news_title }}</h3>
+        <!-- 招聘动态详情 -->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ recruit_title }}</h3>
+            </div>
+            <div class="panel-body">
+                {{ recruit_content | safe }}
+            </div>
+            <div class="panel-footer">
+                {{ person_name }}发表于{{ recruit_posttime }}
+            </div>
         </div>
-        <div class="panel-body panel-success">
-            {{ news_detail }}
+
+        <!-- 评论模块 -->
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-commenting-o"></i>&nbsp;&nbsp;评论</h3>
+            </div>
+            <div class="panel-body">
+                <!-- 评论在此处加载 -->
+                <div id="comments-container"></div>
+            </div>
         </div>
     </div>
 
 {% endblock %}
 
 {% block js %}
+    <script type="text/javascript" src="/static/js/jquery-comments.min.js"></script>
+    <script type="text/javascript" src="http://viima.github.io/jquery-comments/demo/data/comments-data.js"></script>
     <script type="application/javascript" src="/static/js/app/recruit_detail.js"></script>
 {% endblock %}

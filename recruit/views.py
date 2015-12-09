@@ -99,18 +99,19 @@ def news(request, news_id):
     '''
     try:
         obj = RecruitMsg.objects.filter(id=news_id)[0]
-        data = {
-            'person_name': obj.person_name,
-            'recruit_title': obj.recruit_title,
-            'recruit_company': obj.recruit_company,
-            'recruit_posttime': obj.recruit_posttime.strftime('%Y-%m-%d %H:%M:%S'),
-            'recruit_endtime': obj.recruit_endtime.strftime('%Y-%m-%d %H:%M:%S'),
-            'recruit_content': obj.recruit_content
-        }
     except Exception, e:
         logging.error(u'获取招聘动态详细信息(id=%s)失败: %s' % (news_id, e))
-        data = u'获取招聘动态详细信息失败！id=%s' % news_id
-    return HttpResponse(json.dumps(data))
+        return HttpResponse(u'获取招聘动态详细信息失败！id=%s' % news_id)
+
+    return render_to_response('recruit_detail.html', {
+        'newslist': get_newslist(),
+        'person_name': obj.person_name,
+        'recruit_title': obj.recruit_title,
+        'recruit_company': obj.recruit_company,
+        'recruit_posttime': obj.recruit_posttime.strftime('%Y-%m-%d %H:%M:%S'),
+        'recruit_endtime': obj.recruit_endtime.strftime('%Y-%m-%d %H:%M:%S'),
+        'recruit_content': markdown(obj.recruit_content)
+    })
 
 
 
