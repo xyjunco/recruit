@@ -146,29 +146,6 @@ def commit_communication(request):
     return HttpResponse(json.dumps({'result': True, 'message': 'success'}))
 
 
-def get_communication(request):
-    '''
-    通过前端传来的ID值，从Interview表中取出对应的面试经历分享信息
-    :param request: request对象
-    :return: 指定ID值对应的信息
-    '''
-    interview_id = int(request.POST['id'])
-    try:
-        obj = Interview.objects.filter(id=interview_id)[0]
-        data = {
-            'person_name': obj.person_name,
-            'interview_title': obj.interview_title,
-            'interview_company': obj.interview_company,
-            'interview_time': obj.interview_time.strftime('%Y-%m-%d %H:%M:%S'),
-            'interview_way': obj.interview_way,
-            'interview_class': obj.interview_class,
-            'interview_content': obj.interview_content
-        }
-    except Exception, e:
-        logging.error(u'获取面试经历具体信息(id=%s)失败: %s' % (interview_id, e))
-        data = u'获取招聘动态详细信息(id=%s)失败: %s' % (interview_id, e)
-    return HttpResponse(json.dumps(data))
-
 
 def get_calendar_events(request):
     '''

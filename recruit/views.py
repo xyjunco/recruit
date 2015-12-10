@@ -38,13 +38,13 @@ def calendar(request):
     return render_to_response('calendar.html', {'newslist': get_newslist()})
 
 
-def communication(requtest):
+def communicate(requtest):
     '''
     面试交流 版块
     :param requtest: request对象
-    :return: communication.html （渲染进base.html里）
+    :return: communicate.html （渲染进base.html里）
     '''
-    return render_to_response('communication.html', {'newslist': get_newslist()})
+    return render_to_response('communicate.html', {'newslist': get_newslist()})
 
 
 def my_resume(request):
@@ -91,11 +91,12 @@ def resume(request, resume_id):
     })
 
 
-def news(request, news_id):
+def recruit(request, news_id):
     '''
     招聘动态具体页面，展示所发布招聘动态的具体内容，以及相关回复、评论信息
     :param request: request对象
-    :return: news ID对应的具体招聘信息、评论信息
+    :param news_id: 招聘动态ID
+    :return:
     '''
     try:
         obj = RecruitMsg.objects.filter(id=news_id)[0]
@@ -111,6 +112,31 @@ def news(request, news_id):
         'recruit_posttime': obj.recruit_posttime.strftime('%Y-%m-%d %H:%M:%S'),
         'recruit_endtime': obj.recruit_endtime.strftime('%Y-%m-%d %H:%M:%S'),
         'recruit_content': markdown(obj.recruit_content)
+    })
+
+
+def communication(request, interview_id):
+    '''
+    面经交流页面，展示所有用户所发表的面试经历具体信息以及其它用户的评论交流
+    :param request: request对象
+    :param com_id: 该条面经信息ID
+    :return:
+    '''
+    try:
+        obj = Interview.objects.filter(id=interview_id)[0]
+    except Exception, e:
+        logging.error(u'获取面试经历具体信息(id=%s)失败: %s' % (interview_id, e))
+        return HttpResponse(u'获取招聘动态详细信息(id=%s)失败: %s' % (interview_id, e))
+
+    return render_to_response('communication_detail.html', {
+        'newslist': get_newslist(),
+        'person_name': obj.person_name,
+        'interview_title': obj.interview_title,
+        'interview_company': obj.interview_company,
+        'interview_time': obj.interview_time.strftime('%Y-%m-%d'),
+        'interview_way': obj.interview_way,
+        'interview_class': obj.interview_class,
+        'interview_content': obj.interview_content
     })
 
 

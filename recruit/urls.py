@@ -27,13 +27,13 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^home/', views.home, name='home'),
     url(r'^calendar/', views.calendar, name='calendar'),
-    url(r'^communication/', views.communication, name='communication'),
+    url(r'^communicate/', views.communicate, name='communicate'),
     url(r'^my_resume/', views.my_resume, name='my_resume'),
 
     # 招聘动态相关接口
     url(r'^get_recruit_msg/', ajax.get_recruit_msg, name='get_recruit_msg'),
     url(r'^commit_recruit_news/', ajax.commit_recruit_news, name='commit_recruit_news'),
-    url(r'^recruit/(.+)/$', views.news, name='news'),
+    url(r'^recruit/(.+)/$', views.recruit, name='news'),
 
     # 招聘日历接口
     url(r'^get_calendar_events/', ajax.get_calendar_events, name='get_calendar_events'),
@@ -42,9 +42,9 @@ urlpatterns = [
     url(r'^delete_calendar_event/', ajax.delete_calendar_event, name='delete_calendar_event'),
 
     # 面试经历交流接口
-    url(r'^get_communication/', ajax.get_communication, name='get_communication'),
     url(r'^get_communications_msg/', ajax.get_communications_msg, name='commit_communication'),
     url(r'^commit_communication/', ajax.commit_communication, name='commit_communication'),
+    url(r'communication/(.+)/$', views.communication, name='communication_detail'),
 
     # 我的简历接口
     url(r'^resume/(.+)/$', views.resume, name='resume'),

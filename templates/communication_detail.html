@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <link rel="stylesheet" href="/static/css/jquery-comments.css" type="text/css">
+
+    <div class="panel-body">
+        <!-- 面试经验分享详情 -->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ interview_title }}</h3>
+            </div>
+            <div class="panel-body">
+                {{ interview_content | safe }}
+            </div>
+            <div class="panel-footer">
+                {{ person_name }}面试于{{ interview_time }}
+            </div>
+        </div>
+
+        <!-- 评论模块 -->
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-commenting-o"></i>&nbsp;&nbsp;评论</h3>
+            </div>
+            <div class="panel-body">
+                <!-- 评论在此处加载 -->
+                <div id="comments-container"></div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="/static/js/jquery-comments.min.js"></script>
+    <script type="text/javascript" src="http://viima.github.io/jquery-comments/demo/data/comments-data.js"></script>
+    <script type="text/javascript" src="/static/js/app/communication_detail.js"></script>
+{% endblock %}
