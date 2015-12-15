@@ -57,22 +57,22 @@
         </ul>
 
         <div class="navbar-left col-sm-7 m-t-sm">
-                <div class="BreakingNewsController easing" id="breakingnews">
-                    <div class="bn-title"></div>
-                    <ul>
-                        {% if newslist %}
-                            {% for news in newslist %}
-                                <li><a href="{{ news.news_url }}"> {{ news.news_title }} &nbsp;&nbsp;
-                                    <small>{{ news.news_time }}</small>
-                                </a></li>
-                            {% endfor %}
-                        {% else %}
-                            <li>暂无动态！</li>
-                        {% endif %}
-                    </ul>
-                    <div class="bn-arrows"><span class="bn-arrows-left"></span><span class="bn-arrows-right"></span>
-                    </div>
+            <div class="BreakingNewsController easing" id="breakingnews">
+                <div class="bn-title"></div>
+                <ul>
+                    {% if newslist %}
+                        {% for news in newslist %}
+                            <li><a href="{{ news.news_url }}"> {{ news.news_title }} &nbsp;&nbsp;
+                                <small>{{ news.news_time }}</small>
+                            </a></li>
+                        {% endfor %}
+                    {% else %}
+                        <li>暂无动态！</li>
+                    {% endif %}
+                </ul>
+                <div class="bn-arrows"><span class="bn-arrows-left"></span><span class="bn-arrows-right"></span>
                 </div>
+            </div>
         </div>
 
         <div class="navbar-right ">
@@ -286,7 +286,6 @@
 <script type="text/javascript" src="/static/js/markdown-hotkey.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap-markdown.js"></script>
 <script type="text/javascript" src="/static/js/bootstrap-markdown.zh.js"></script>
-
 
 
 <!-- 扩展各个页面js代码 -->

@@ -263,5 +263,12 @@ $(function () {
         }
     });
 
+    // 使按钮点击事件映射到<a>标签点击事件
+    // button的onclick事件发生后，执行的是PDF文件的预览操作，并没有执行下载操作
+    // 然后<a>标签的download属性可以做到下载，所以采用这种办法
+    $('.downloadbutton').click(function () {
+        $(this).children()[1].click();
+    });
+
 
 });

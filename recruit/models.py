@@ -42,10 +42,20 @@ class ResumeComment(models.Model):
     # 评论用户，默认不可为空
     person_id = models.IntegerField(verbose_name='发布人ID', null=False, blank=False)
     person_name = models.CharField(verbose_name='姓名', max_length=30, blank=False)
-    # 评论时间
-    comment_time = models.DateTimeField(verbose_name='评论时间', null=False, blank=False)
+    # 评论人头像
+    profilePictureURL = models.URLField(verbose_name='头像地址', null=True, blank=True)
+    # 父节点
+    comment_parent = models.IntegerField(verbose_name='父节点', null=True, blank=True)
+    # 评论时间，评论生成时即打上timestamp，所以默认不可为空
+    comment_created = models.DateTimeField(verbose_name='评论时间', null=False, blank=False)
+    # 修改时间，当被修改之后该字段才有效，所以默认可为空
+    comment_modified = models.DateTimeField(verbose_name='修改时间', null=True, blank=True)
     # 评论内容
     comment_content = models.TextField(verbose_name='评论内容', blank=False)
+    # 点赞数
+    upvoteCount = models.IntegerField(verbose_name='点赞数', default=0)
+    # 赞过该状态的人ID
+    userHasUpvoted = models.TextField(verbose_name='赞过的人', null=True, blank=True)
 
     def __unicode__(self):
         return self.person_name + '的评论'
@@ -83,15 +93,25 @@ class RecruitMsg(models.Model):
 
 # 招聘动态评论，一条评论对应一个RecruitMsg对象
 class RecruitComment(models.Model):
-    # 简历关连到ResumeMsg
-    resume = models.ForeignKey(RecruitMsg)
+    # 评论关连到RecruitMsg
+    recruit = models.ForeignKey(RecruitMsg)
     # 评论用户，默认不可为空
     person_id = models.IntegerField(verbose_name='发布人ID', null=False, blank=False)
     person_name = models.CharField(verbose_name='姓名', max_length=30, blank=False)
-    # 评论时间
-    comment_time = models.DateTimeField(verbose_name='评论时间', null=False, blank=False)
+    # 评论人头像
+    profilePictureURL = models.URLField(verbose_name='头像地址', null=True, blank=True)
+    # 父节点
+    comment_parent = models.IntegerField(verbose_name='父节点', null=True, blank=True)
+    # 评论时间，评论生成时即打上timestamp，所以默认不可为空
+    comment_created = models.DateTimeField(verbose_name='评论时间', null=False, blank=False)
+    # 修改时间，当被修改之后该字段才有效，所以默认可为空
+    comment_modified = models.DateTimeField(verbose_name='修改时间', null=True, blank=True)
     # 评论内容
     comment_content = models.TextField(verbose_name='评论内容', blank=False)
+    # 点赞数
+    upvoteCount = models.IntegerField(verbose_name='点赞数', default=0)
+    # 赞过该状态的人ID
+    userHasUpvoted = models.TextField(verbose_name='赞过的人', null=True, blank=True)
 
     def __unicode__(self):
         return self.person_name + '的评论'
@@ -128,6 +148,32 @@ class Interview(models.Model):
 
     def __unicode__(self):
         return self.person_name + self.interview_company + '面试总结'
+
+
+# 面试交流评论
+class InterviewComment(models.Model):
+    # 评论关联到面试经验分享
+    interview = models.ForeignKey(Interview)
+    # 评论用户，默认不可为空
+    person_id = models.IntegerField(verbose_name='发布人ID', null=False, blank=False)
+    person_name = models.CharField(verbose_name='姓名', max_length=30, blank=False)
+    # 评论人头像
+    profilePictureURL = models.URLField(verbose_name='头像地址', null=True, blank=True)
+    # 父节点
+    comment_parent = models.IntegerField(verbose_name='父节点', null=True, blank=True)
+    # 评论时间，评论生成时即打上timestamp，所以默认不可为空
+    comment_created = models.DateTimeField(verbose_name='评论时间', null=False, blank=False)
+    # 修改时间，当被修改之后该字段才有效，所以默认可为空
+    comment_modified = models.DateTimeField(verbose_name='修改时间', null=True, blank=True)
+    # 评论内容
+    comment_content = models.TextField(verbose_name='评论内容', blank=False)
+    # 点赞数
+    upvoteCount = models.IntegerField(verbose_name='点赞数', default=0)
+    # 赞过该状态的人ID
+    userHasUpvoted = models.TextField(verbose_name='赞过的人', null=True, blank=True)
+
+    def __unicode__(self):
+        return self.person_name + '的评论'
 
 
 # 最新动态表，每当产生一条新动态的时候向该表中写入一条记录

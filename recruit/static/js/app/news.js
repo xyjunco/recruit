@@ -144,7 +144,6 @@ $(function () {
         var id = object.id;
 
         window.open('/recruit/' + id);
-
     });
 
 });

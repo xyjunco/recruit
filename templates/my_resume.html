@@ -31,13 +31,13 @@
                     <div class="col-md-4 col-sm-6 col-xs-12 resume-item">
                         <article class="material-card">
                             <h2>
-                                <span><h5>{{ resume.resume_name }}</h5></span>
+                                <span><h5>{{ resume.resume_name | cut:'.pdf' }}</h5></span>
                                 <strong><h5>上传于{{ resume.upload_time }}</h5></strong>
                             </h2>
                             <div class="mc-content">
                                 <div class="img-container">
                                     <img class="img-responsive" src="{{ resume.resume_thumb }}"></div>
-                                <div class="mc-description">{{ resume.resume_desc }}</div>
+                                <div class="mc-description">{{ resume.resume_desc | default:'无描述信息' }}</div>
                             </div>
                             <a class="mc-btn-action"><i class="fa fa-bars"></i></a>
 
@@ -58,11 +58,10 @@
                                             onclick="window.open('/resume/{{ resume.id }}')">
                                         <i class="fa fa-search"></i>&nbsp;查看
                                     </button>
-                                    <button type="button" class="btn btn-info"
-                                            onclick="window.open('{{ resume.resume_path.url }}')">
-                                        <i class="fa fa-cloud-download"></i>&nbsp;下载
+                                    <button type="button" class="btn btn-info downloadbutton">
+                                        <i class="fa fa-cloud-download"></i>
+                                        <a href="{{ resume.resume_path.url }}" download class="downloadbtn" style="color: white;">下载</a>
                                     </button>
-
                                     <button type="button" class="btn btn-danger deletebtn" value="{{ resume.id }}">
                                         <i class="fa fa-times"></i>&nbsp;删除
                                     </button>

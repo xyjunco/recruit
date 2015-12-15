@@ -9,8 +9,8 @@ from .models import *
 
 class ResumeCommentAdmin(admin.TabularInline):
     model = ResumeComment
-    fields = ['resume', 'person_id', 'person_name', 'comment_time', 'comment_content']
-    list_display = ['resume', 'person_name', 'comment_time', 'comment_content']
+    fields = ['resume', 'person_id', 'person_name', 'comment_parent', 'comment_created', 'comment_modified', 'upvoteCount']
+    list_display = ['resume', 'person_name', 'comment_created']
 
 
 class ResumeMsgAdmin(admin.ModelAdmin):
@@ -23,8 +23,8 @@ class ResumeMsgAdmin(admin.ModelAdmin):
 
 class RecruitCommentAdmin(admin.TabularInline):
     model = RecruitComment
-    fields = ['resume', 'person_id', 'person_name', 'comment_time', 'comment_content']
-    list_display = ['resume', 'person_name', 'comment_time', 'comment_content']
+    fields = ['recruit', 'person_id', 'person_name', 'comment_parent', 'comment_created', 'comment_modified', 'upvoteCount']
+    list_display = ['recruit', 'person_name', 'comment_created']
 
 
 class RecruitMsgAdmin(admin.ModelAdmin):
@@ -35,7 +35,14 @@ class RecruitMsgAdmin(admin.ModelAdmin):
     list_filter = ['recruit_posttime']
 
 
+class InterviewCommentAdmin(admin.ModelAdmin):
+    model = Interview
+    fields = ['person_id', 'person_name', 'comment_parent', 'comment_created', 'comment_modified', 'upvoteCount']
+    list_display = ['person_name']
+
+
 class InterviewAdmin(admin.ModelAdmin):
+    inlines = [InterviewCommentAdmin]
     fields = ['person_id', 'person_name', 'interview_title', 'interview_company', 'interview_time', 'interview_way', 'interview_class']
     list_display = ['person_name', 'interview_title', 'interview_company', 'interview_time', 'interview_way', 'interview_class']
     search_fields = ['person_name', 'interview_title', 'interview_company']
