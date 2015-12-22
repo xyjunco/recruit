@@ -26,7 +26,7 @@ def home(request):
     :param request: request对象
     :return: news.html (渲染进base.html里)
     '''
-    return render_to_response('news.html', {'newslist': get_newslist()})
+    return render_to_response('news.html', {'newslist': get_newslist(), 'user': request.user})
 
 
 def calendar(request):
@@ -35,7 +35,7 @@ def calendar(request):
     :param request: request对象
     :return: calendar.html (渲染进base.html里)
     '''
-    return render_to_response('calendar.html', {'newslist': get_newslist()})
+    return render_to_response('calendar.html', {'newslist': get_newslist(), 'user': request.user})
 
 
 def communicate(requtest):
@@ -44,7 +44,7 @@ def communicate(requtest):
     :param requtest: request对象
     :return: communicate.html （渲染进base.html里）
     '''
-    return render_to_response('communicate.html', {'newslist': get_newslist()})
+    return render_to_response('communicate.html', {'newslist': get_newslist(), 'user': requtest.user})
 
 
 def my_resume(request):
@@ -71,6 +71,7 @@ def my_resume(request):
 
     return render_to_response('my_resume.html', {
         'newslist': get_newslist(),
+        'user': request.user,
         'resumes': data
     })
 
@@ -85,6 +86,7 @@ def resume(request, resume_id):
 
     return render_to_response('resume.html', {
         'newslist': get_newslist(),
+        'user': request.user,
         # 这里如果返回obj.resume_path.url，会将中文字符进行url编码处理，再进行访问时解析会出错
         # obj.resume_path.name会返回中文相对路径，手动加上'/media/'后补全为绝对路径返回前端
         'resume_url': '/media/' + obj.resume_path.name
@@ -106,6 +108,7 @@ def recruit(request, news_id):
 
     return render_to_response('recruit_detail.html', {
         'newslist': get_newslist(),
+        'user': request.user,
         'person_name': obj.person_name,
         'recruit_title': obj.recruit_title,
         'recruit_company': obj.recruit_company,
@@ -130,6 +133,7 @@ def communication(request, interview_id):
 
     return render_to_response('communication_detail.html', {
         'newslist': get_newslist(),
+        'user': request.user,
         'person_name': obj.person_name,
         'interview_title': obj.interview_title,
         'interview_company': obj.interview_company,
@@ -148,7 +152,7 @@ def resume_by_group(request):
     :return:
     '''
 
-    return render_to_response('resume_by_group.html', {'newslist': get_newslist()})
+    return render_to_response('resume_by_group.html', {'newslist': get_newslist(), 'user': request.user})
 
 
 def screen(request):
@@ -158,7 +162,7 @@ def screen(request):
     :return:
     '''
 
-    return render_to_response('screen.html', {'newslist': get_newslist()})
+    return render_to_response('screen.html', {'newslist': get_newslist(), 'user': request.user})
 
 
 def get_newslist():

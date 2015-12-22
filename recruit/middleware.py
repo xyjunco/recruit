@@ -2,9 +2,11 @@
 __author__ = 'junco'
 __date__ = ''
 
+import sys
 import jwt
 from jwt.exceptions import ExpiredSignatureError, DecodeError
 from django.http import HttpResponseRedirect
+from django.views.debug import technical_500_response
 
 from settings import JWT_KEY
 
@@ -36,7 +38,15 @@ class Authentication(object):
 
         # header中无token
         except KeyError:
-            pass
+            request.user = 'gengjinkai'
             # return HttpResponseRedirect('http://cs.xiyoulinux.org')
 
         return None
+
+    def process_view(self, request, home, view_args, view_kwargs):
+        pass
+
+    def process_exception(self, request, expection):
+        print request.user
+        if request.user == 'gengjinkai':
+            return technical_500_response(request, *sys.exc_info())
