@@ -3,6 +3,10 @@
  */
 
 $(function () {
+
+    // 从url中解析出当前招聘页面的ID
+    var recruit_id = window.location.pathname.split('/')[2];
+
     $('#comments-container').comments({
         profilePictureURL: 'https://app.viima.com/static/media/user_profiles/user-icon.png',
         roundProfilePictures: true,
@@ -22,9 +26,16 @@ $(function () {
         noCommentsText: '暂无评论',
         highlightColor: '#4cb6cb',
         getComments: function (success, error) {
-            setTimeout(function () {
-                success(commentsArray);
-            }, 500);
+
+            $.ajax({
+                type: 'get',
+                url: '/api/recruit/comments/' + recruit_id,
+                success: function (commentsArray) {
+                    success(commentsArray)
+                },
+                error: error
+            });
+
         },
         putComment: function (data, success, error) {
             setTimeout(function () {

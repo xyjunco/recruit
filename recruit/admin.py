@@ -9,7 +9,7 @@ from .models import *
 
 class ResumeCommentAdmin(admin.TabularInline):
     model = ResumeComment
-    fields = ['resume', 'person_id', 'person_name', 'comment_parent', 'comment_created', 'comment_modified', 'upvoteCount']
+    fields = ['person_id', 'person_name', 'profilePictureURL', 'comment_parent', 'comment_content', 'comment_created']
     list_display = ['resume', 'person_name', 'comment_created']
 
 
@@ -23,7 +23,7 @@ class ResumeMsgAdmin(admin.ModelAdmin):
 
 class RecruitCommentAdmin(admin.TabularInline):
     model = RecruitComment
-    fields = ['recruit', 'person_id', 'person_name', 'comment_parent', 'comment_created', 'comment_modified', 'upvoteCount']
+    fields = ['person_id', 'person_name', 'profilePictureURL', 'comment_parent', 'comment_content', 'comment_created']
     list_display = ['recruit', 'person_name', 'comment_created']
 
 

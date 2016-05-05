@@ -26,6 +26,7 @@ class Authentication(object):
 
             token = request.META['HTTP_BEARER']
             header = jwt.decode(token, JWT_KEY)
+            # request.user = header['user_id']
             print header
 
         # token失败
@@ -38,7 +39,8 @@ class Authentication(object):
 
         # header中无token
         except KeyError:
-            request.user = 'gengjinkai'
+            pass
+            # request.user = 'unknown'
             # return HttpResponseRedirect('http://cs.xiyoulinux.org')
 
         return None
@@ -46,7 +48,3 @@ class Authentication(object):
     def process_view(self, request, home, view_args, view_kwargs):
         pass
 
-    def process_exception(self, request, expection):
-        print request.user
-        if request.user == 'gengjinkai':
-            return technical_500_response(request, *sys.exc_info())

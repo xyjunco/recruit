@@ -5,6 +5,7 @@ __date__ = '2015-10-18'
 
 from django.db import models
 import sys
+import json
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -55,7 +56,7 @@ class ResumeComment(models.Model):
     # 点赞数
     upvoteCount = models.IntegerField(verbose_name='点赞数', default=0)
     # 赞过该状态的人ID
-    userHasUpvoted = models.TextField(verbose_name='赞过的人', null=True, blank=True)
+    userHasUpvoted = models.TextField(verbose_name='赞过的人', default=json.dumps([]))
 
     def __unicode__(self):
         return self.person_name + '的评论'
@@ -111,7 +112,7 @@ class RecruitComment(models.Model):
     # 点赞数
     upvoteCount = models.IntegerField(verbose_name='点赞数', default=0)
     # 赞过该状态的人ID
-    userHasUpvoted = models.TextField(verbose_name='赞过的人', null=True, blank=True)
+    userHasUpvoted = models.TextField(verbose_name='赞过的人', default=json.dumps([]))
 
     def __unicode__(self):
         return self.person_name + '的评论'

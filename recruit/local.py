@@ -1,7 +1,7 @@
 # coding=utf-8
 __author__ = 'junco'
 __date__ = ''
-# 所有与equest请求无关，不返回Response的本地方法均实现于此
+# 所有与request请求无关，不返回Response的本地方法均实现于此
 
 from django.core.exceptions import MultipleObjectsReturned
 import json

@@ -3,6 +3,8 @@
  */
 
 $(function () {
+    var resume_id = window.location.pathname.split('/')[2];
+
     $('#comments-container').comments({
         profilePictureURL: 'https://app.viima.com/static/media/user_profiles/user-icon.png',
         roundProfilePictures: true,
@@ -21,25 +23,84 @@ $(function () {
         hideRepliesText: '隐藏',
         noCommentsText: '暂无评论',
         highlightColor: '#4cb6cb',
+
+        // 获取所有评论内容
         getComments: function (success, error) {
-            setTimeout(function () {
-                success(commentsArray);
-            }, 500);
+            $.ajax({
+                type: 'get',
+                url: '/api/resume/comments/' + resume_id,
+                success: function (commentsArray) {
+                    success(commentsArray)
+                },
+                error: error
+            });
         },
-        putComment: function (data, success, error) {
-            setTimeout(function () {
-                success(data);
-            }, 200)
+
+        // 新增一条评论内容
+        postComment: function (commentJSON, success, error) {
+            $.ajax({
+                type: 'post',
+                url: '/api/resume/post_comment/' + resume_id + '/',
+                data: {
+                    data: commentJSON,
+                    objid: resume_id,
+                    csrfmiddlewaretoken: get_cookie('csrftoken')
+                },
+                success: function () {
+                    success(commentJSON)
+                },
+                error: error
+            });
+            return commentJSON;
         },
-        deleteComment: function (data, success, error) {
-            setTimeout(function () {
-                success();
-            }, 200)
+
+        // update一条已经存在的评论内容
+        putComment: function (commentJSON, success, error) {
+            $.ajax({
+                type: 'post',
+                url: '/api/resume/update_comment/' + resume_id + '/',
+                data: {
+                    data: commentJSON,
+                    csrfmiddlewaretoken: get_cookie('csrftoken')
+                },
+                success: function (data) {
+                    success(commentJSON)
+                },
+                error: error
+            });
         },
-        upvoteComment: function (data, success, error) {
-            setTimeout(function () {
-                success(data);
-            }, 200)
+
+        // 删除一条评论
+        deleteComment: function (commentJSON, success, error) {
+            $.ajax({
+                type: 'post',
+                url: '/api/resume/delete_comment/' + resume_id + '/',
+                data: {
+                    data: commentJSON,
+                    csrfmiddlewaretoken: get_cookie('csrftoken')
+                },
+                success: function (data) {
+                    success(commentJSON)
+                },
+                error: error
+            });
+        },
+
+        // 点赞 或 取消赞
+        upvoteComment: function (commentJSON, success, error) {
+            $.ajax({
+                type: 'post',
+                url: '/api/resume/upvote/' + resume_id + '/',
+                data: {
+                    data: commentJSON,
+                    csrfmiddlewaretoken: get_cookie('csrftoken')
+                },
+                success: function () {
+                    success(commentJSON)
+                },
+                error: error
+            });
+
         }
     });
 });

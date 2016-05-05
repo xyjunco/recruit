@@ -20,8 +20,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
-from recruit import views
-from recruit import ajax
+from recruit import views, ajax, comments
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
@@ -34,6 +34,7 @@ urlpatterns = [
     url(r'^get_recruit_msg/', ajax.get_recruit_msg, name='get_recruit_msg'),
     url(r'^commit_recruit_news/', ajax.commit_recruit_news, name='commit_recruit_news'),
     url(r'^recruit/(.+)/$', views.recruit, name='news'),
+    url(r'^api/recruit/comments/(.+)/$', comments.get_comments, name='get_comments'),
 
     # 招聘日历接口
     url(r'^get_calendar_events/', ajax.get_calendar_events, name='get_calendar_events'),
@@ -51,6 +52,13 @@ urlpatterns = [
     url(r'^upload_resume/', ajax.upload_resume, name='upload_resume'),
     url(r'^change_resume_gathered/', ajax.change_resume_gathered, name='change_resume_gathered'),
     url(r'^delete_resume/', ajax.delete_resume, name='delete_resume'),
+    url(r'^api/resume/comments/(.+)/$', comments.get_comments, name='get_comments'),
+    url(r'^api/resume/post_comment/(.+)/$', comments.post_comment, name='post_comments'),
+    url(r'^api/resume/update_comment/(.+)/$', comments.update_comment, name='update_comment'),
+    url(r'^api/resume/delete_comment/(.+)/$', comments.delete_comment, name='delete_comment'),
+    url(r'^api/resume/upvote/(.+)/$', comments.upvote, name='delete_comment'),
+
+
 
     # 成员简历接口
     url(r'^resume_by_group/', views.resume_by_group, name='resume_by_group'),
