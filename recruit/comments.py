@@ -70,6 +70,13 @@ def get_comments(request, obj_id):
             modified = comment.comment_modified.strftime("%Y-%m-%d %H:%M")
         else:
             modified = ''
+
+        # 获取所有点赞人ID列表
+        upvoted_list = json.loads(comment.userHasUpvoted)
+        if test_id in upvoted_list:
+            comment.userHasUpvoted = True
+        else:
+            comment.userHasUpvoted = False
         result = {
             'id': comment.id,
             'parent': comment.comment_parent,
@@ -80,7 +87,7 @@ def get_comments(request, obj_id):
             'profile_picture_url': comment.profilePictureURL,
             'created_by_current_user': True,
             'upvote_count': comment.upvoteCount,
-            'user_has_upvoted': False
+            'user_has_upvoted': comment.userHasUpvoted
         }
         resultlist.append(result)
 
@@ -205,9 +212,9 @@ def upvote(request, objid):
     :return: 处理结果
     '''
 
-    obj = get_object(request, int(str(objid)))
+    obj = get_object(request, int(objid))
     comment_id = request.POST[u'data[id]']
-    has_upvoted = request.POST['data[user_has_upvoted]']
+    has_upvoted = request.POST[u'data[user_has_upvoted]']
 
     # 用户点赞
     if has_upvoted == u'true':
@@ -221,13 +228,14 @@ def upvote(request, objid):
         try:
             resume_obj = ResumeComment.objects.filter(resume=obj, id=comment_id)[0]
             resume_obj.upvoteCount += power
-            list = json.dumps(resume_obj.userHasUpvoted)
-            list.append(test_id)
+            list = json.loads(resume_obj.userHasUpvoted)
+            if power > 0:
+                list.append(test_id)
+            else:
+                list.remove(test_id)
             resume_obj.userHasUpvoted = json.dumps(list)
+
             resume_obj.save()
-            # ResumeComment.objects.filter(resume=obj, id=comment_id)\
-            #     .update(upvoteCount=F('upvoteCount')+power,
-            #             userHasUpvoted=json.dumps(json.loads(F('userHasUpvoted')).append(test_id)))
         except Exception, e:
             logging.error(u'点赞简历ID＝{0}的评论ID＝{1}时发生错误：{2}'.format(obj.id, comment_id, e))
             return JsonResponse({'result': False, 'message': e})

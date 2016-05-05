@@ -15,6 +15,7 @@ Including another URLconf
     1. Add an import:  from blog import urls as blog_urls
     2. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
+
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
@@ -56,7 +57,7 @@ urlpatterns = [
     url(r'^api/resume/post_comment/(.+)/$', comments.post_comment, name='post_comments'),
     url(r'^api/resume/update_comment/(.+)/$', comments.update_comment, name='update_comment'),
     url(r'^api/resume/delete_comment/(.+)/$', comments.delete_comment, name='delete_comment'),
-    url(r'^api/resume/upvote/(.+)/$', comments.upvote, name='delete_comment'),
+    url(r'^api/resume/upvote/(.+)/$', comments.upvote, name='upvote'),
 
 
 

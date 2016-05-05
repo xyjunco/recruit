@@ -105,15 +105,15 @@
                         <li><a id="btn-logout" data-toggle="ajaxModal">退出</a></li>
                     </ul>
                 </li>
-                <ul class="nav navbar-nav hidden-xs">
-                    <li>
-                        <a href="#sidebar" id="sidebar_toggle" data-toggle="class:nav-xs,nav-xs"
-                           class="text-muted active">
-                            <i class="fa fa-indent text"></i>
-                            <i class="fa fa-dedent text-active"></i>
-                        </a>
-                    </li>
-                </ul>
+{#                <ul class="nav navbar-nav hidden-xs">#}
+{#                    <li>#}
+{#                        <a href="#sidebar" id="sidebar_toggle" data-toggle="class:nav-xs,nav-xs"#}
+{#                           class="text-muted active">#}
+{#                            <i class="fa fa-indent text"></i>#}
+{#                            <i class="fa fa-dedent text-active"></i>#}
+{#                        </a>#}
+{#                    </li>#}
+{#                </ul>#}
             </ul>
         </div>
     </header>
@@ -175,62 +175,6 @@
                         </section>
                     </section>
 
-                    <aside class="aside-md bg-light dk" id="sidebar">
-                        <section class="vbox animated fadeInRight">
-                            <section class="scrollable hover">
-                                <nav class="nav-primary hidden-xs">
-                                    <h4 class="font-thin m-l-md m-t hidden-nav-xs">用户列表</h4>
-                                    <ul class="nav list-group no-bg no-borders auto m-t-n-xxs">
-                                        <li class="list-group-item">
-                                            <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-                                                <img src="/static/img/pic.jpg" alt="..." class="img-circle"/>
-                                            </span>
-
-                                            <div class="clear">
-                                                <div class="hidden-nav-xs">
-                                                    <a href="../profile.php?uid=&lt;{$raside_user_list[raside_user_list].uid}&gt;">Junco</a>
-                                                </div>
-                                                <div class="visible-nav-xs">
-                                                    <a href="#">占格</a>
-                                                </div>
-                                                <small class="text-muted hidden-nav-xs">吉林延吉</small>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-                                                <img src="/static/img/pic.jpg" alt="..." class="img-circle"/>
-                                            </span>
-
-                                            <div class="clear">
-                                                <div class="hidden-nav-xs">
-                                                    <a href="../profile.php?uid=&lt;{$raside_user_list[raside_user_list].uid}&gt;">Junco</a>
-                                                </div>
-                                                <div class="visible-nav-xs">
-                                                    <a href="#">占格</a>
-                                                </div>
-                                                <small class="text-muted hidden-nav-xs">吉林延吉</small>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item">
-                                            <span class="pull-left thumb-xs m-t-xs avatar m-l-xs m-r-sm">
-                                                <img src="/static/img/pic.jpg" alt="..." class="img-circle"/>
-                                            </span>
-
-                                            <div class="clear">
-                                                <div class="hidden-nav-xs">
-                                                    <a href="../profile.php?uid=&lt;{$raside_user_list[raside_user_list].uid}&gt;">Junco</a>
-                                                </div>
-                                                <div class="visible-nav-xs">
-                                                    <a href="#">占格</a>
-                                                </div>
-                                                <small class="text-muted hidden-nav-xs">吉林延吉</small>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </section>
-                        </section>
-                    </aside>
                 </section>
                 <!--hbox stretch-->
                 <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open"
@@ -301,10 +245,10 @@
         var navbar = document.getElementById("nav");
         navbar.className += " nav-xs";
     }
-    if (get_cookie("sidebar_status") == "close") {
-        var sidebar = document.getElementById("sidebar");
-        sidebar.className += " nav-xs";
-    }
+{#    if (get_cookie("sidebar_status") == "close") {#}
+{#        var sidebar = document.getElementById("sidebar");#}
+{#        sidebar.className += " nav-xs";#}
+{#    }#}
 
     var toggle = document.getElementById("navbar_toggle");
     toggle.addEventListener("click", function () {
@@ -312,11 +256,11 @@
         set_cookie("navbar_status", status, 999999999);
     }, false);
 
-    var toggle = document.getElementById("sidebar_toggle");
-    toggle.addEventListener("click", function () {
-        var status = (get_cookie("sidebar_status") == "close") ? "open" : "close";
-        set_cookie("sidebar_status", status, 999999999);
-    }, false);
+{#    var toggle = document.getElementById("sidebar_toggle");#}
+{#    toggle.addEventListener("click", function () {#}
+{#        var status = (get_cookie("sidebar_status") == "close") ? "open" : "close";#}
+{#        set_cookie("sidebar_status", status, 999999999);#}
+{#    }, false);#}
 
     $(function () {
         //上方滚动条设置
