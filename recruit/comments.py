@@ -102,7 +102,6 @@ def post_comment(request, objid):
     :return: 后台操作结果
     '''
     # 简历/招聘信息对象ID值 ，根据此ID值获得对象实体
-    # objid = request.POST[u'objid']
     obj = get_object(request, int(str(objid)))
 
     # 该条评论父节点，如果没有父节点则设置为0
@@ -129,7 +128,7 @@ def post_comment(request, objid):
     if isinstance(obj, RecruitMsg):
         try:
             RecruitComment.objects.create(
-                resume=obj,
+                recruit=obj,
                 person_id=test_id,
                 person_name=test_people,
                 comment_parent=int(parent),
@@ -243,7 +242,16 @@ def upvote(request, objid):
     # 如果点赞的是招聘动态的评论
     if isinstance(obj, RecruitMsg):
         try:
-            RecruitComment.objects.filter(resume=obj, id=comment_id).update(upvoteCount=F('upvoteCount')+power)
+            recruit_obj = RecruitComment.objects.filter(recruit=obj, id=comment_id)[0]
+            recruit_obj.upvoteCount += power
+            list = json.loads(recruit_obj.userHasUpvoted)
+            if power > 0:
+                list.append(test_id)
+            else:
+                list.remove(test_id)
+            recruit_obj.userHasUpvoted = json.dumps(list)
+
+            recruit_obj.save()
         except Exception, e:
             logging.error(u'点赞招聘信息ID＝{0}的评论ID={1}发生错误：{2}'.format(obj.id, comment_id, e))
             return JsonResponse({'result': False, 'message': e})

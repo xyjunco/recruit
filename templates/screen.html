@@ -1,25 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-    <link rel="stylesheet" href="/static/css/jquery.pwstabs-1.2.1.css" type="text/css">
+    <link rel="stylesheet" href="/static/css/select2.min.css" type="text/css">
 
     <div class="panel-body">
 
-        <div class="tabs">
-            <div data-pws-tab="anynameyouwant1" data-pws-tab-name="按年级过滤">
-                按年级过滤
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="collapse navbar-collapse">
+                <form class="navbar-form navbar-left form-horizontal" style="width: 100%;;" role="search">
+                    <label for="tags" class="col-md-1 control-label">过滤</label>
+                    <div class="col-md-10">
+                        <select style="width: 100%;" class="form-control" id="tags" multiple="multiple"></select>
+                    </div>
+                    <button class="btn btn-sm btn-success" id="filter_btn" type="button">确定</button>
+                </form>
             </div>
-            <div data-pws-tab="anynameyouwant2" data-pws-tab-name="按标签过滤">
-                按标签过滤
-            </div>
+        </nav>
+
+        <div class="resume-group" style="text-align: center">
+            <p>请在上方过滤框中选择过滤条件</p>
         </div>
+
 
     </div>
 
 {% endblock %}
 
 {% block js %}
-    <script type="application/javascript" src="/static/js/jquery.pwstabs-1.2.1.min.js"></script>
+    <script type="text/javascript" src="/static/js/select2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.material-cards.min.js"></script>
     <script type="application/javascript" src="/static/js/app/screen.js"></script>
 {% endblock %}

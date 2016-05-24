@@ -3,7 +3,8 @@
 __author__ = 'junco'
 __date__ = ''
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render_to_response
 from datetime import datetime
 import logging
 import json
@@ -365,6 +366,64 @@ def get_tags(request):
     return HttpResponse(json.dumps(map(str, tags)))
 
 
+def get_tags_with_id(request):
+    '''
+    标签接口：从数据库中取出所有可用标签名称
+    :param request: request对象
+    :return: 标签名list
+    '''
+    tag_list = []
+    # 从Tag表中取出每一个tag_name值，注意values_list返回结果仍为QuerySet
+    tags = Tag.objects.all()
+    for tag in tags:
+        tag_list.append({'id': tag.pk, 'text': tag.tag_name})
+    # 对每一个tag_name对象作用于str方法，序列化后返回
+    return HttpResponse(json.dumps(tag_list))
+
+
+def filter_resume(request):
+    '''
+    根据前端传来的过滤标签,找出对应的简历
+    :param request:
+    :return:
+    '''
+    tags = json.loads(request.POST['tags'])
+    data = Tag.objects.all()
+    resumes = set()
+    result = []
+    if tags:
+        for tag in tags:
+            try:
+                # 从Tag表中,找出指定tag id所对应的简历
+                resume = data.get(id=int(tag))
+            except Exception, e:
+                logging.error(u'过滤标签ID=%s时出错: %s' % (tag, e))
+                return HttpResponse({"result": False, 'msg': e})
+
+            # 如果tag_to_resume字段不为空
+            if resume.tag_to_resume:
+                resumes.update(json.loads(resume.tag_to_resume))
+            else:
+                continue
+        for resume_id in resumes:
+            try:
+                resume_obj = ResumeMsg.objects.get(id=resume_id)
+            except Exception, e:
+                continue
+            result.append({
+                'id': resume_obj.id,
+                'author': resume_obj.person_name,
+                'resume_name': resume_obj.resume_name,
+                'resume_desc': resume_obj.resume_desc,
+                'upload_time': resume_obj.upload_time,
+                'resume_path': str(resume_obj.resume_path),
+                'resume_thumb': resume_obj.resume_thumb,
+                'is_gathered': resume_obj.is_gathered
+            })
+
+    return render_to_response('render_resume.html', {"resumes": result})
+
+
 def create_news(id, name, title, time, url):
     '''
     向News表中新增一条新动态
@@ -385,3 +444,4 @@ def create_news(id, name, title, time, url):
         )
     except Exception, e:
         logging.error(u'向数据库动态表中生成新动态失败: %s' % e)
+

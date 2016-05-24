@@ -1,0 +1,45 @@
+
+<!-- 通过Django模板渲染出N个简历  N为当前用户所上传的简历数 -->
+
+{% if resumes %}
+    {% for resume in resumes %}
+
+        <div class="col-md-4 col-sm-6 col-xs-12 resume-item">
+            <article class="material-card">
+                <h2>
+                    <span><h5>{{ resume.resume_name | cut:'.pdf' }}</h5></span>
+                    <strong><h5>{{ resume.author }}上传于{{ resume.upload_time }}</h5></strong>
+                </h2>
+                <div class="mc-content">
+                    <div class="img-container">
+                        <img class="img-responsive" src="{{ resume.resume_thumb }}"></div>
+                    <div class="mc-description">{{ resume.resume_desc | default:'无描述信息' }}</div>
+                </div>
+                <a class="mc-btn-action"><i class="fa fa-bars"></i></a>
+
+                <div class="mc-footer">
+
+                    <div class="btn-group btn-group-sm" role="group" aria-labelledby>
+                        <button type="button" class="btn btn-success" value="{{ forloop.counter }}"
+                                onclick="window.open('/resume/{{ resume.id }}')">
+                            <i class="fa fa-search"></i>&nbsp;查看
+                        </button>
+                        <button type="button" class="btn btn-info downloadbutton">
+                            <i class="fa fa-cloud-download"></i>
+                            <a href="{{ resume.resume_path.url }}" download class="downloadbtn"
+                               style="color: white;">下载</a>
+                        </button>
+                        <button type="button" class="btn btn-danger deletebtn" value="{{ resume.id }}">
+                            <i class="fa fa-times"></i>&nbsp;删除
+                        </button>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+    {% endfor %}
+{% else %}
+    <div style="text-align: center">
+        <p>暂未找到符合筛选条件的简历!</p>
+    </div>
+{% endif %}

@@ -37,6 +37,12 @@ urlpatterns = [
     url(r'^recruit/(.+)/$', views.recruit, name='news'),
     url(r'^api/recruit/comments/(.+)/$', comments.get_comments, name='get_comments'),
 
+    url(r'^api/recruit/comments/(.+)/$', comments.get_comments, name='get_comments'),
+    url(r'^api/recruit/post_comment/(.+)/$', comments.post_comment, name='post_comments'),
+    url(r'^api/recruit/update_comment/(.+)/$', comments.update_comment, name='update_comment'),
+    url(r'^api/recruit/delete_comment/(.+)/$', comments.delete_comment, name='delete_comment'),
+    url(r'^api/recruit/upvote/(.+)/$', comments.upvote, name='upvote'),
+
     # 招聘日历接口
     url(r'^get_calendar_events/', ajax.get_calendar_events, name='get_calendar_events'),
     url(r'^commit_calendar_event/', ajax.commit_calendar_event, name='commit_calendar_event'),
@@ -53,6 +59,7 @@ urlpatterns = [
     url(r'^upload_resume/', ajax.upload_resume, name='upload_resume'),
     url(r'^change_resume_gathered/', ajax.change_resume_gathered, name='change_resume_gathered'),
     url(r'^delete_resume/', ajax.delete_resume, name='delete_resume'),
+
     url(r'^api/resume/comments/(.+)/$', comments.get_comments, name='get_comments'),
     url(r'^api/resume/post_comment/(.+)/$', comments.post_comment, name='post_comments'),
     url(r'^api/resume/update_comment/(.+)/$', comments.update_comment, name='update_comment'),
@@ -60,15 +67,16 @@ urlpatterns = [
     url(r'^api/resume/upvote/(.+)/$', comments.upvote, name='upvote'),
 
 
-
     # 成员简历接口
     url(r'^resume_by_group/', views.resume_by_group, name='resume_by_group'),
 
     # 简历过滤接口
     url(r'^screen/', views.screen, name='screen'),
+    url(r'^filter_resume/', ajax.filter_resume, name='filter_resume'),
 
     # 标签相关接口
-    url(r'^get_tags/', ajax.get_tags, name='get_tags')
+    url(r'^get_tags/', ajax.get_tags, name='get_tags'),
+    url(r'^get_tags_with_id/', ajax.get_tags_with_id, name='get_tags_with_id'),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
